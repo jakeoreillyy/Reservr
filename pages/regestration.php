@@ -75,11 +75,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="city">Password</label>
-            <input type="password" placeholder="Password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
           </div>
-          <input type="password" placeholder="Password" required>
-          <button type="submit">Register</button>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Create a password" required>
+          </div>
+          <button type="submit">Create Account</button>
         </form>
       </div>
     </main>
