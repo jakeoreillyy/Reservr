@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Login - Library Services</title>
+    <title>Reservr | Login</title>
   </head>
   <body>
     <nav>
@@ -21,7 +21,7 @@
         <a href="./login.php" class="active">Login</a>
         </li>
         <li>
-          <a href="./regestration.php">Register</a>
+          <a href="./registration.php">Register</a>
         </li>
       </ul>
     </nav> 
@@ -45,7 +45,7 @@
       </div>
     </main>
     <footer class="foot">
-      &#169; <?php echo date("Y")?> Library Services. All rights reserved.
+      &#169; <?php echo date("Y"); ?> Library Services. All rights reserved.
     </footer>
   </body>
 </html>

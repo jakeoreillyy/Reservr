@@ -7,7 +7,7 @@
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Register - Library Services</title>
+    <title>Reservr | Register</title>
   </head>
   <body>
     <nav>
@@ -21,7 +21,7 @@
           <a href="./login.php">Login</a>
         </li>
         <li>
-          <a href="./regestration.php class="active="active">Register</a>
+          <a href="./registration.php" class="active">Register</a>
         </li>
       </ul>
     </nav>  
@@ -80,14 +80,14 @@
           </div>
           <div class="form-group">
             <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Create a password" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" required>
           </div>
           <button type="submit">Create Account</button>
         </form>
       </div>
     </main>
     <footer class="foot">
-      &#169; <?php echo date("Y")?> Library Services. All rights reserved.
+      &#169; <?php echo date("Y"); ?> Library Services. All rights reserved.
     </footer>
   </body>
 </html>
