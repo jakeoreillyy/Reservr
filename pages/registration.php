@@ -14,14 +14,14 @@
       <ul>
         <li class="logo">
           <a href="../index.php">
-            <img src="../images/Library.svg" alt="Library icon">
+            <img src="../src/logo.svg" alt="Library icon">
           </a>
         </li>  
         <li>
           <a href="../index.php">Login</a>
         </li>
         <li>
-          <a href="./registration.php" class="active">Register</a>
+          <a href="registration.php" class="active">Register</a>
         </li>
       </ul>
     </nav>  
@@ -86,7 +86,7 @@
         </form>
       </div>
     </main>
-    <footer class="foot">
+    <footer>
       &#169; <?php echo date("Y"); ?> Library Services. All rights reserved.
     </footer>
   </body>
