@@ -36,6 +36,12 @@ nav li.logo {
   margin-right: auto;
 }
 
+nav li.logo a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 nav li.logo img {
   height: 36px;
   width: auto;
