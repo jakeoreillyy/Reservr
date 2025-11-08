@@ -35,8 +35,7 @@ It features a user-friendly interface for students and librarians to manage book
 css/
 └── style.css
 pages/
-├── login.php
-├── reservation.php
+└── registration.php
 images/
 └── logo.svg
 index.php

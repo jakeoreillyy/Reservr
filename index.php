@@ -13,15 +13,15 @@
     <nav>
       <ul>
         <li class="logo">
-          <a href="./login.php">
+          <a href="./index.php">
             <img src="../images/Library.svg" alt="Library icon">
           </a>
         </li>  
         <li>
-        <a href="./login.php" class="active">Login</a>
+        <a href="./index.php" class="active">Login</a>
         </li>
         <li>
-          <a href="./registration.php">Register</a>
+          <a href="./pages/registration.php">Register</a>
         </li>
       </ul>
     </nav> 
