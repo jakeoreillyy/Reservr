@@ -30,12 +30,12 @@
         <h2>Welcome Back</h2>
         <form method="POST" action="">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required/>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required/>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
           </div> 
           <button type="submit">Sign In</button>
           <div class="form-footer">

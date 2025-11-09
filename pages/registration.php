@@ -53,10 +53,6 @@
             <input type="text" id="surname" name="surname" placeholder="Surname" required>
           </div>
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Choose a username" required>
-          </div>
-          <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Email" required>
           </div>
