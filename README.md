@@ -38,6 +38,8 @@ pages/
 └── registration.php
 images/
 └── logo.svg
+database/
+└── users.sql
 index.php
 
 ```
