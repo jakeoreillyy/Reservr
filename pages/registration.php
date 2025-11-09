@@ -66,12 +66,12 @@
           </div>
           <div class="input-align">
             <div class="form-group">
-              <label for="town">Town</label>
-              <input type="text" id="town" name="town" placeholder="Town" required>
-            </div>
-            <div class="form-group">
               <label for="city">City</label>
               <input type="text" id="city" name="city" placeholder="City" required>
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="Country" required>
             </div>
           </div>
           <div class="form-group">
@@ -91,3 +91,39 @@
     </footer>
   </body>
 </html>
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "reservr";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_POST['title']) && isset($_POST['first_name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['address']) && isset($_POST['city']) && isset($_POST['country']) && isset($_POST['password'])) {
+  $title = $_POST['title'];
+  $first_name = $_POST['first_name'];
+  $surname = $_POST['surname'];  
+  $email = $_POST['email'];
+  $phone = $_POST['phone'];
+  $address = $_POST['address'];
+  $city = $_POST['city'];
+  $country = $_POST['country'];
+  $password = $_POST['password'];
+
+$stmt = $conn->prepare("INSERT INTO users (UserName, Password, FirstName, LastName) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $n, $p, $first, $last);
+
+    if ($stmt->execute()) {
+        echo "New record created successfully<br>";
+    } else {
+        echo "Error: " . $stmt->error . "<br>";
+    }
+    
+    $stmt->close();
+}
+$conn->close();
+?>

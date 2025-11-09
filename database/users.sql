@@ -35,8 +35,8 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `town` varchar(50) NOT NULL,
   `city` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
   `password_hash` varchar(255) NOT NULL COMMENT 'Stores a jumbled up password rather than what the user entered, for safety purposes',
   `created_at` varchar(50) NOT NULL DEFAULT current_timestamp() COMMENT 'Timestamp for when the user registered their account'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Table to store user data';
