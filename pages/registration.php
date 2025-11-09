@@ -57,8 +57,12 @@
             <input type="text" id="username" name="username" placeholder="Choose a username" required>
           </div>
           <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" required>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" pattern="[0-9]{10,14}" required>
           </div>
           <div class="form-group">
             <label for="address">Address</label>
