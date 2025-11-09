@@ -49,8 +49,8 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Second Name" required>
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="surname" placeholder="Surname" required>
           </div>
           <div class="form-group">
             <label for="username">Username</label>
