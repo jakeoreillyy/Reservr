@@ -23,7 +23,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $city = $_POST['city'];
     $country = $_POST['country'];
     $password = $_POST['password'];
+    $confirm_password = $_POST('confirm_password');
 
+    trim($phone);
+
+    $validate_form = true;
+
+    if (strlen($password) != 6) {
+      $validate_form = false;
+    } else {
+      if ($password != $confirm_password) {
+        $validate_form = false;
+      }
+    }
+
+    if (strlen($phone) != 10) {
+      $validate_form = false;
+    }
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -110,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" pattern="[0-9]{10,14}" required>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" required>
           </div>
           <div class="form-group">
             <label for="address">Address</label>
