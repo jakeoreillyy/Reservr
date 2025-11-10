@@ -37,7 +37,8 @@ css/
 pages/
 └── registration.php
 images/
-└── logo.svg
+├── logo.svg
+└── reading.png
 database/
 └── users.sql
 index.php
