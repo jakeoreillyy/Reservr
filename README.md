@@ -32,16 +32,19 @@ It features a user-friendly interface for students and librarians to manage book
 ## 📂 Structure
 
 ```
-css/
-└── style.css
-pages/
-└── registration.php
-images/
-├── logo.svg
-└── reading.png
-database/
-└── users.sql
-index.php
+Reservr/
+├── css/
+│   └── style.css
+├── pages/
+│   └── registration.php
+├── images/
+│   ├── logo.svg
+│   └── reading.png
+├── database/
+│   └── users.sql
+├── includes/
+│   └── database_connection.php
+└── index.php
 
 ```
 
