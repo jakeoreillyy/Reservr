@@ -94,64 +94,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </ul>
     </nav>  
     <main>
-      <div class="card">
-        <h2>Create Account</h2>
-        <form method="POST" action="">
-          <div class="input-align">
-            <div class="form-group">
-              <label for="title">Title</label>
-              <select id="title" name="title" class="dropdown" required>
-                  <option value="" disabled selected>Select your title</option>
-                  <option value="Mr.">Mr.</option>
-                  <option value="Mrs.">Mrs.</option>
-                  <option value="Miss">Miss</option>
-                  <option value="Ms.">Ms.</option>
-                  <option value="Dr.">Dr.</option>
-                  <option value="Mx.">Mx.</option>
-                  <option value="None">Prefer not to say</option>
-              </select>
+      <div class="grid-container">
+        <div class="reading">
+          <img src="../src/reading.png" alt="Woman reading">
+        </div>
+        <div class="card">
+          <h2>Create Account</h2>
+          <form method="POST" action="">
+            <div class="input-align">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <select id="title" name="title" class="dropdown" required>
+                    <option value="" disabled selected>Select your title</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Mx.">Mx.</option>
+                    <option value="None">Prefer not to say</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+              </div>
             </div>
             <div class="form-group">
-              <label for="first_name">First Name</label>
-              <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="surname">Surname</label>
-            <input type="text" id="surname" name="surname" placeholder="Surname" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" required>
-          </div>
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="Street address" required>
-          </div>
-          <div class="input-align">
-            <div class="form-group">
-              <label for="city">City</label>
-              <input type="text" id="city" name="city" placeholder="City" required>
+              <label for="surname">Surname</label>
+              <input type="text" id="surname" name="surname" placeholder="Surname" required>
             </div>
             <div class="form-group">
-              <label for="country">Country</label>
-              <input type="text" id="country" name="country" placeholder="Country" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Create a password" required>
-          </div>
-          <div class="form-group">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" required>
-          </div>
-          <button type="submit">Create Account</button>
-        </form>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" name="address" placeholder="Street address" required>
+            </div>
+            <div class="input-align">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="City" required>
+              </div>
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" placeholder="Country" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm_password">Confirm Password</label>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" required>
+            </div>
+            <button type="submit">Create Account</button>
+          </form>
+        </div>
       </div>
     </main>
     <footer>

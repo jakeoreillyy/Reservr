@@ -26,22 +26,27 @@
       </ul>
     </nav> 
     <main>
-      <div class="card">
-        <h2>Welcome Back</h2>
-        <form method="POST" action="">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-          </div> 
-          <button type="submit">Sign In</button>
-          <div class="form-footer">
-            <a href="#">Forgot your password</a>
-          </div>
-        </form>
+      <div class="grid-container">
+        <div class="reading">
+          <img src="src/reading.png" alt="Woman reading">
+        </div>
+        <div class="card">
+          <h2>Welcome Back</h2>
+          <form method="POST" action="">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div> 
+            <button type="submit">Sign In</button>
+            <div class="form-footer">
+              <a href="#">Forgot your password</a>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
     <footer>
