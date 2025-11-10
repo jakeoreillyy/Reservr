@@ -4,36 +4,50 @@ $username = "root";
 $password = "";
 $dbname = "reservr";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$error_messsage = "";
+$success_messsage = "";
 
-if (isset($_POST['title']) && isset($_POST['first_name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['address']) && isset($_POST['city']) && isset($_POST['country']) && isset($_POST['password'])) {
-  $title = $_POST['title'];
-  $first_name = $_POST['first_name'];
-  $surname = $_POST['surname'];  
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-  $address = $_POST['address'];
-  $city = $_POST['city'];
-  $country = $_POST['country'];
-  $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $conn = new mysqli($servername, $username, $password, $dbname);
 
-  $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-  $stmt = $conn->prepare("INSERT INTO users (title, first_name, surname, email, phone, address, city, country, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
-
-  if ($stmt->execute()) {
-    echo "New record created successfully<br>";
+  if ($conn->connect_error) {
+    $error_message = "Connection failed: " . $conn->connect_error;
   } else {
-    echo "Error: " . $stmt->error . "<br>";
-  }
-    
+    $title = $_POST['title'];
+    $first_name = $_POST['first_name'];
+    $surname = $_POST['surname'];  
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
+    $password = $_POST['password'];
+
+
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    $stmt = $conn->prepare("INSERT INTO users (title, first_name, surname, email, phone, address, city, country, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
+
+    try {
+      if ($stmt->execute()) {
+        $success_messsage = "Account created successfully! You can now login <a href='../index.php'>here</a>";
+      }
+    } catch (mysqli_sql_exception $e) {
+      if (strpos($e->getMessage(), 'email_unique') !== false) {
+          $error_message = "This email is already registered. <a href='../index.php'>Login instead?</a>";
+      } elseif (strpos($e->getMessage(), 'phone_unique') !== false) {
+          $error_message = "This phone number is already registered.";
+      } else {
+          $error_message = "Registration failed. Please try again.";
+      }
+    }
+      
     $stmt->close();
+    $conn->close();
+  }
 }
-$conn->close();
 ?>
 
 <!DOCTYPE html>
