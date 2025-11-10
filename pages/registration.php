@@ -4,8 +4,8 @@ $username = "root";
 $password = "";
 $dbname = "reservr";
 
-$error_messsage = "";
-$success_messsage = "";
+$error_message = "";
+$success_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $conn = new mysqli($servername, $username, $password, $dbname);
@@ -30,37 +30,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $validate_form = true;
 
     if (strlen($password) != 6) {
+      $error_message = "Password must be 6 digits";
       $validate_form = false;
     } else {
-      if ($password != $confirm_password) {
+      if ($password !== $confirm_password) {
+        $error_message = "Passwords do not match";
         $validate_form = false;
       }
     }
 
     if (strlen($phone) != 10) {
+      $error_message = "Phone number must be 10 digits";
       $validate_form = false;
     }
 
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    if ($validate_form) {
+      $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO users (title, first_name, surname, email, phone, address, city, country, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
+      $stmt = $conn->prepare("INSERT INTO users (title, first_name, surname, email, phone, address, city, country, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
 
-    try {
-      if ($stmt->execute()) {
-        $success_messsage = "Account created successfully! You can now login <a href='../index.php'>here</a>";
+      try {
+        if ($stmt->execute()) {
+          $success_messsage = "Account created successfully! You can now login <a href='../index.php'>here</a>";
+        }
+      } catch (mysqli_sql_exception $e) {
+        if (strpos($e->getMessage(), 'email_unique') !== false) {
+            $error_message = "This email is already registered. <a href='../index.php'>Login instead?</a>";
+        } elseif (strpos($e->getMessage(), 'phone_unique') !== false) {
+            $error_message = "This phone number is already registered.";
+        } else {
+            $error_message = "Registration failed. Please try again.";
+        }
       }
-    } catch (mysqli_sql_exception $e) {
-      if (strpos($e->getMessage(), 'email_unique') !== false) {
-          $error_message = "This email is already registered. <a href='../index.php'>Login instead?</a>";
-      } elseif (strpos($e->getMessage(), 'phone_unique') !== false) {
-          $error_message = "This phone number is already registered.";
-      } else {
-          $error_message = "Registration failed. Please try again.";
-      }
+        
+      $stmt->close();
     }
-      
-    $stmt->close();
     $conn->close();
   }
 }
@@ -100,7 +105,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="card">
           <h2>Create Account</h2>
-          <form method="POST" action="">
+
+          <?php if ($error_message): ?>
+            <div class="alert-error">
+              <?php echo $error_message; ?>
+            </div>
+          <?php endif; ?>
+        
+          <?php if ($success_message): ?>
+            <div class="alert-success">
+              <?php echo $success_message; ?>
+            </div>
+          <?php endif; ?>
+
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="input-align">
               <div class="form-group">
                 <label for="title">Title</label>
