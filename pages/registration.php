@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    trim($phone);
+    $phone = trim($phone);
 
     $validate_form = true;
 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       try {
         if ($stmt->execute()) {
-          $success_messsage = "Account created successfully! You can now login <a href='../index.php'>here</a>";
+          $success_message = "Account created successfully! You can now login <a href='../index.php'>here</a>";
         }
       } catch (mysqli_sql_exception $e) {
         if (strpos($e->getMessage(), 'email_unique') !== false) {
@@ -105,19 +105,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="card">
           <h2>Create Account</h2>
-
           <?php if ($error_message): ?>
             <div class="alert-error">
               <?php echo $error_message; ?>
             </div>
-          <?php endif; ?>
-        
+          <?php endif; ?>        
           <?php if ($success_message): ?>
             <div class="alert-success">
               <?php echo $success_message; ?>
             </div>
           <?php endif; ?>
-
           <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="input-align">
               <div class="form-group">
