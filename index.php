@@ -6,6 +6,11 @@
   Last updated: 11/11/2025 
 -->
 
+<?php 
+include 'includes/database_connection.php';
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
