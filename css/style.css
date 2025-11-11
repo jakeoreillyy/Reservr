@@ -6,14 +6,14 @@
   Last updated: 11/11/2025
 */
 
-/* Universal selector to flush out any margin/padding */
+/* universal selector to flush out any margin/padding values */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Setting values to be added to all sections */
+/* setting values to be added to all sections */
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -24,7 +24,7 @@ body {
   color: #1a1a1a;
 }
 
-/*  */
+/* navbar styling and forcing it to stay at the top of the screen */
 nav {
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -33,6 +33,7 @@ nav {
   z-index: 100;
 }
 
+/* styling list elements of the navbar */
 nav ul {
   list-style: none;
   display: flex;
@@ -43,16 +44,19 @@ nav ul {
   height: 64px;
 }
 
+/* reservr logo on the left of the navbar */
 nav li.logo {
   margin-right: auto;
 }
 
+/* positioning the logo in the center of its area on the y-axis */
 nav li.logo a {
   display: flex;
   align-items: center;
   height: 100%;
 }
 
+/* fixed size for the logo image */
 nav li.logo img {
   height: 36px;
   width: auto;
@@ -60,10 +64,12 @@ nav li.logo img {
   transition: transform 0.2s ease;
 }
 
+/* when hovered, the logo image zooms */
 nav li.logo img:hover {
   transform: scale(1.05);
 }
 
+/* styling all the navbar list link elements */
 nav li a {
   color: #2c5f4f;
   text-decoration: none;
@@ -75,16 +81,19 @@ nav li a {
   transition: all 0.2s ease;
 }
 
+/* colour change when the links are hovered over */
 nav li a:hover {
   background-color: #f0f9f6;
   color: #1e4538;
 }
 
+/* whichever page you're on, that list link will be a different colour to the rest (to show which you are on) */
 nav li a.active {
   background-color: #2c5f4f;
   color: #ffffff;
 }
 
+/* main section flexbox styling and positioning center on the x-axis and y-axis */
 main {
   flex: 1;
   display: flex;
@@ -93,6 +102,7 @@ main {
   padding: 40px 20px;
 }
 
+/* card styling for the forms on index.php and registration.php */
 .card {
   background: #ffffff;
   border-radius: 16px;
@@ -104,12 +114,14 @@ main {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* when the card is hovered, it will move up slightly */
 .card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 48px rgba(44, 95, 79, 0.15),
     0 4px 12px rgba(44, 95, 79, 0.1);
 }
 
+/* styling h2 elements */
 h2 {
   color: #1a1a1a;
   text-align: center;
@@ -119,6 +131,7 @@ h2 {
   letter-spacing: -0.5px;
 }
 
+/* error message styling if the form is entered incorrectly */
 .alert-error {
   background-color: #fef2f2;
   color: #991b1b;
@@ -132,16 +145,19 @@ h2 {
   line-height: 1.5;
 }
 
+/* link element in the error message has different styling */
 .alert-error a {
   color: #991b1b;
   font-weight: 600;
   text-decoration: underline;
 }
 
+/* hovering the link it changes colour */
 .alert-error a:hover {
   color: #7f1d1d;
 }
 
+/* success message styling if the form is entered correctly */
 .alert-success {
   background-color: #f0fdf4;
   color: #166534;
@@ -155,28 +171,33 @@ h2 {
   line-height: 1.5;
 }
 
+/* link element in the success message has different styling */
 .alert-success a {
   color: #166534;
   font-weight: 600;
   text-decoration: underline;
 }
 
+/* hovering the link it changes colour */
 .alert-success a:hover {
   color: #14532d;
 }
 
+/* form styling and setting areas to be stacked (column) rather than a line (row) */
 form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+/* each section of the form styled to be stacked (column) */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+/* label styling */
 label {
   font-size: 14px;
   font-weight: 500;
@@ -184,6 +205,7 @@ label {
   margin-left: 4px;
 }
 
+/* styling the text box and dropdown select */
 input,
 select {
   padding: 14px 16px;
@@ -197,16 +219,19 @@ select {
   outline: none;
 }
 
+/* changing the colour of the placeholder in the input */
 input::placeholder {
   color: #999999;
 }
 
+/* input/select colour change when hovered */
 input:hover,
 select:hover {
   border-color: #c0c0c0;
   background-color: #ffffff;
 }
 
+/* input/select colour change when clicked */
 input:focus,
 select:focus {
   border-color: #2c5f4f;
@@ -214,21 +239,24 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(44, 95, 79, 0.1);
 }
 
+/* styling how the dropdown looks */
 select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%234a4a4a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%234a4a4a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); /* arrow image for the dropdwon */
   background-repeat: no-repeat;
   background-position: right 16px center;
   padding-right: 40px;
 }
 
+/* setting the inputs in imput-align to be in a line (row) rather than stacked (column) like the other inputs */
 .input-align {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
+/* button styling */
 button {
   background: linear-gradient(135deg, #2c5f4f 0%, #1e4538 100%);
   color: #ffffff;
@@ -243,15 +271,18 @@ button {
   box-shadow: 0 4px 12px rgba(44, 95, 79, 0.3);
 }
 
+/* button when hovered moves up and changes colour */
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(44, 95, 79, 0.4);
   background: linear-gradient(135deg, #1e4538 0%, #153329 100%);
 }
 
+/* when clicked the button goes back down */
 button:active {
   transform: translateY(0);
 }
+
 
 .form-footer {
   text-align: center;
