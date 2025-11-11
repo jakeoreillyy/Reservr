@@ -14,6 +14,8 @@ $success_message = "";
 $validate_form = true;
 $errors = [];
 $form_submitted_successfully = false;
+$password_error = false;
+$phone_error = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $title = $_POST['title'];
@@ -26,8 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $country = $_POST['country'];
   $password = $_POST['password'];
   $confirm_password = $_POST['confirm_password'];
-
-  $password_error = false;
 
   if (strlen($password) != 6) {
     $errors[] = "Password must be 6 digits";
@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   $phone = preg_replace('/\D/', '', $phone);
-  $phone_error = false;
 
   if (strlen($phone) != 10) {
     $errors[] = "Phone number must be 10 digits";
@@ -155,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" value="<?php if ($phone_error === false && !$form_submitted_successfully) : echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; endif ?>" required>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" value="<?php if (!$phone_error && !$form_submitted_successfully) : echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; endif ?>" required>
             </div>
             <div class="form-group">
               <label for="address">Address</label>
@@ -173,11 +172,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" placeholder="Create a password" value="<?php if ($password_error === false && !$form_submitted_successfully) : echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; endif; ?>" required>
+              <input type="password" id="password" name="password" placeholder="Create a password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; endif; ?>" required>
             </div>
             <div class="form-group">
               <label for="confirm_password">Confirm Password</label>
-              <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if ($password_error === false && !$form_submitted_successfully) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
             </div>
             <button type="submit">Create Account</button>
           </form>
