@@ -1,3 +1,11 @@
+<!--
+  Project: Reservr, library reservation system
+  Author: Jake O'Reilly
+  File: dashboard.php
+  Description: Once logged in this page will be the landing, able to search, view, and reserve books
+  Last updated: 11/11/2025
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

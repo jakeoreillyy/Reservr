@@ -1,9 +1,19 @@
+/*
+  Project: Reservr, library reservation system
+  Author: Jake O'Reilly
+  File: style.css
+  Description: Global stylesheet for the whole project
+  Last updated: 11/11/2025
+*/
+
+/* Universal selector to flush out any margin/padding */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Setting values to be added to all sections */
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -14,6 +24,7 @@ body {
   color: #1a1a1a;
 }
 
+/*  */
 nav {
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);

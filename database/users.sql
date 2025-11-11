@@ -1,3 +1,11 @@
+/*
+  Project: Reservr, library reservation system
+  Author: Jake O'Reilly
+  File: users.sql
+  Description: User database for the login/registration system
+  Last updated: 11/11/2025
+*/
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
