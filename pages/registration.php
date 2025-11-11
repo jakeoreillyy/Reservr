@@ -13,6 +13,7 @@ $error_message = "";
 $success_message = "";
 $validate_form = true;
 $errors = [];
+$form_submitted_successfully = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $title = $_POST['title'];
@@ -62,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
       if ($stmt->execute()) {
         $success_message = "Account created successfully! You can now login <a href='../index.php'>here</a>";
+        $form_submitted_successfully = true;
       }
     } catch (mysqli_sql_exception $e) {
       if (strpos($e->getMessage(), 'email') !== false) {
@@ -153,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" value="<?php if ($phone_error === false) : echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; endif ?>" required>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" value="<?php if ($phone_error === false && !$form_submitted_successfully) : echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; endif ?>" required>
             </div>
             <div class="form-group">
               <label for="address">Address</label>
@@ -171,11 +173,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" placeholder="Create a password" value="<?php if ($password_error === false) : echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; endif; ?>" required>
+              <input type="password" id="password" name="password" placeholder="Create a password" value="<?php if ($password_error === false && !$form_submitted_successfully) : echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; endif; ?>" required>
             </div>
             <div class="form-group">
               <label for="confirm_password">Confirm Password</label>
-              <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if ($password_error === false) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if ($password_error === false && !$form_submitted_successfully) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
             </div>
             <button type="submit">Create Account</button>
           </form>
