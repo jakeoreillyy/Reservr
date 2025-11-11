@@ -36,6 +36,7 @@ Reservr/
 ├── css/
 │   └── style.css
 ├── pages/
+│   ├── dashboard.php
 │   └── registration.php
 ├── images/
 │   ├── logo.svg
