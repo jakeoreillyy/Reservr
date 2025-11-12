@@ -44,6 +44,9 @@ if (!isset($_SESSION['user_id'])) {
         <li>
           <img src="../src/search.svg" alt="Search icon">
         </li>
+        <li>
+          <img src="../src/search.svg" alt="Search icon">
+        </li>
       </ul>
     </nav>  
 </body>
