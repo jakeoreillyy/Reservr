@@ -27,15 +27,15 @@ include '../includes/database_connection.php';
     <nav>
       <ul>
         <li class="logo">
-          <a href="dashboard.php">
+          <a href="../index.php">
             <img src="../src/logo.svg" alt="Library icon">
           </a>
         </li>  
         <li>
-          <a href="dashboard.php">View</a>
+          <a href="dashboard.php" class="active">Home</a>
         </li>
         <li>
-          <a href="dashboard.php" class="active">Search</a>
+          <img src="../src/search.svg" alt="Search icon">
         </li>
       </ul>
     </nav>  
