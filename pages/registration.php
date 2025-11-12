@@ -18,16 +18,16 @@ $password_error = false;
 $phone_error = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $title = $_POST['title'];
-  $first_name = $_POST['first_name'];
-  $surname = $_POST['surname'];  
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-  $address = $_POST['address'];
-  $city = $_POST['city'];
-  $country = $_POST['country'];
-  $password = $_POST['password'];
-  $confirm_password = $_POST['confirm_password'];
+  $title = trim($_POST['title']);
+  $first_name = trim($_POST['first_name']);
+  $surname = trim($_POST['surname']);  
+  $email = trim($_POST['email']);
+  $phone = trim($_POST['phone']);
+  $address = trim($_POST['address']);
+  $city = trim($_POST['city']);
+  $country = trim($_POST['country']);
+  $password = trim($_POST['password']);
+  $confirm_password = trim($_POST['confirm_password']);
 
   if (strlen($password) != 6) {
     $errors[] = "Password must be 6 digits";
@@ -179,6 +179,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
             </div>
             <button type="submit">Create Account</button>
+            <div class="form-footer">
+              <a href="../index.php">Already have an account?</a>
+            </div>
           </form>
         </div>
       </div>

@@ -7,9 +7,48 @@
 -->
 
 <?php 
+session_start();
+
 include 'includes/database_connection.php';
 
+if (isset($_SESSION['user_id'])) {
+  header("Location: pages/dashboard.php");
+  exit();
+}
 
+$error_message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $email = trim($_POST['email']);
+  $password = $_POST['password'];
+
+  $stmt = $conn->prepare("SELECT user_id, first_name, surname, email, password_hash from users where email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+
+    if (password_verify($password, $user['password_hash'])) {
+      $_SESSION['user_id'] = $user['user_id'];
+      $_SESSION['first_name'] = $user['first_name'];
+      $_SESSION['surname'] = $user['surname'];
+      $_SESSION['email'] = $user['email'];
+      
+      header("Location: pages/dashboard.php");
+      exit();
+    } else {
+      $error_message = "Incorrect password";
+    }
+  } else {
+    $error_message = "This email does not exist. <a href='pages/registration.php'>Register instead?</a>";
+  }
+  
+  $stmt->close();
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -46,10 +85,15 @@ include 'includes/database_connection.php';
         </div>
         <div class="card">
           <h2>Welcome Back</h2>
-          <form method="POST" action="">
+          <?php if ($error_message): ?>
+            <div class="alert-error">
+              <?php echo $error_message; ?>
+            </div>
+          <?php endif; ?> 
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Enter your email" required>
+              <input type="email" id="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
