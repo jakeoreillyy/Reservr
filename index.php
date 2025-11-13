@@ -86,7 +86,7 @@ $conn->close();
     <main>
       <div class="grid-container">
         <div class="reading">
-          <img src="assets/images/reading.png" alt="Woman reading">
+          <img src="assets/images/books.png" alt="Book Stack">
         </div>
         <div class="card">
           <h2>Welcome Back</h2>
