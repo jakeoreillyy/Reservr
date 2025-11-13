@@ -44,10 +44,19 @@ $conn->close();
         <li>
           <img src="../assets/icons/search.svg" alt="Search icon">
         </li>
-        <li>
-          <img src="../assets/icons/profile.svg" alt="Profile icon">
+        <li class="dropdown">
+          <a href="#">
+            <img src="../assets/icons/profile.svg" alt="Profile icon">
+          </a>
+          <div class="dropdown-content">
+            <a href="#"><?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?></a>
+            <a href="../index.php">Log out</a>
+          </div>
         </li>
       </ul>
-    </nav>  
+    </nav> 
+    <footer>
+      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
+    </footer> 
 </body>
 </html>

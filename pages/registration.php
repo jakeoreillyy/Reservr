@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </main>
     <footer>
-      &#169; <?php echo date("Y"); ?> Library Services. All rights reserved.
+      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
     </footer>
   </body>
 </html>
