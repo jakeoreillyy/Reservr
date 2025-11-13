@@ -1,10 +1,10 @@
-<!--
+/*
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
   File: registration.php
   Description: Registration page to get a new user and add it to the users.sql database
   Last updated: 11/11/2025
--->
+*/
 
 <?php
 include '../includes/database_connection.php';
@@ -57,23 +57,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     $stmt = $conn->prepare("INSERT INTO users (title, first_name, surname, email, phone, address, city, country, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
+    
+    if (!$stmt) {
+      error_log("Database error: " . $conn->error);
+      $error_message = "System error, try again later or restart computer.";
+    } else {
+      $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
 
-    try {
-      if ($stmt->execute()) {
-        $success_message = "Account created successfully! You can now login <a href='../index.php'>here</a>";
-        $form_submitted_successfully = true;
+      try {
+        if ($stmt->execute()) {
+          $success_message = "Account created successfully! You can now login <a href='../index.php'>here</a>";
+          $form_submitted_successfully = true;
+        }
+      } catch (mysqli_sql_exception $e) {
+        if (strpos($e->getMessage(), 'email') !== false) {
+            $error_message = "This email is already registered. <a href='../index.php'>Login instead?</a>";
+        } elseif (strpos($e->getMessage(), 'phone') !== false) {
+            $error_message = "This phone number is already registered.";
+        } else {
+            $error_message = "Registration failed. Please try again.";
+        }
       }
-    } catch (mysqli_sql_exception $e) {
-      if (strpos($e->getMessage(), 'email') !== false) {
-          $error_message = "This email is already registered. <a href='../index.php'>Login instead?</a>";
-      } elseif (strpos($e->getMessage(), 'phone') !== false) {
-          $error_message = "This phone number is already registered.";
-      } else {
-          $error_message = "Registration failed. Please try again.";
-      }
-    }
-      
+    }  
     $stmt->close();
   }
   $conn->close();
@@ -96,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <ul>
         <li class="logo">
           <a href="../index.php">
-            <img src="../src/logo.svg" alt="Library icon">
+            <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  
         <li>
@@ -110,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
       <div class="grid-container">
         <div class="reading">
-          <img src="../src/reading.png" alt="Woman reading">
+          <img src="../assets/images/reading.png" alt="Woman reading">
         </div>
         <div class="card">
           <h2>Create Account</h2>

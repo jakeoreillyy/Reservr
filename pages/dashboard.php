@@ -1,22 +1,22 @@
-<!--
+/*
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
   File: dashboard.php
   Description: Once logged in this page will be the landing, able to search, view, and reserve books
   Last updated: 11/11/2025
--->
+*/
 
 <?php 
 session_start();
 
 include '../includes/database_connection.php';
 
-session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");
     exit();
 }
 
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -35,17 +35,17 @@ if (!isset($_SESSION['user_id'])) {
       <ul>
         <li class="logo">
           <a href="../index.php">
-            <img src="../src/logo.svg" alt="Library icon">
+            <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  
         <li>
           <a href="dashboard.php" class="active">Home</a>
         </li>
         <li>
-          <img src="../src/search.svg" alt="Search icon">
+          <img src="../assets/icons/search.svg" alt="Search icon">
         </li>
         <li>
-          <img src="../src/search.svg" alt="Search icon">
+          <img src="../assets/icons/profile.svg" alt="Profile icon">
         </li>
       </ul>
     </nav>  

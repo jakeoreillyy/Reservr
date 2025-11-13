@@ -1,10 +1,10 @@
-<!-- 
+/*
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
   File: index.php
   Description: landing page that lets a user to login to their account
   Last updated: 11/11/2025 
--->
+*/
 
 <?php 
 session_start();
@@ -23,28 +23,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST['password'];
 
   $stmt = $conn->prepare("SELECT user_id, first_name, surname, email, password_hash from users where email = ?");
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
-  $result = $stmt->get_result();
-
-  if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
-
-    if (password_verify($password, $user['password_hash'])) {
-      $_SESSION['user_id'] = $user['user_id'];
-      $_SESSION['first_name'] = $user['first_name'];
-      $_SESSION['surname'] = $user['surname'];
-      $_SESSION['email'] = $user['email'];
-      
-      header("Location: pages/dashboard.php");
-      exit();
-    } else {
-      $error_message = "Incorrect password";
-    }
-  } else {
-    $error_message = "This email does not exist. <a href='pages/registration.php'>Register instead?</a>";
-  }
   
+  if (!$stmt) {
+    error_log("Database error: " . $conn->error);
+    $error_message = "System error, try again later or restart computer.";
+  } else {
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+      $user = $result->fetch_assoc();
+
+      if (password_verify($password, $user['password_hash'])) {
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['first_name'] = $user['first_name'];
+        $_SESSION['surname'] = $user['surname'];
+        $_SESSION['email'] = $user['email'];
+        
+        header("Location: pages/dashboard.php");
+        exit();
+      } else {
+        $error_message = "Incorrect password";
+      }
+    } else {
+      $error_message = "This email does not exist. <a href='pages/registration.php'>Register instead?</a>";
+    }
+  }
   $stmt->close();
 }
 
@@ -67,7 +72,7 @@ $conn->close();
       <ul>
         <li class="logo">
           <a href="index.php">
-            <img src="src/logo.svg" alt="Library Logo">
+            <img src="assets/icons/logo.svg" alt="Library Logo">
           </a>
         </li>  
         <li>
@@ -81,7 +86,7 @@ $conn->close();
     <main>
       <div class="grid-container">
         <div class="reading">
-          <img src="src/reading.png" alt="Woman reading">
+          <img src="assets/images/reading.png" alt="Woman reading">
         </div>
         <div class="card">
           <h2>Welcome Back</h2>
