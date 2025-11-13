@@ -1,10 +1,10 @@
-/*
+<!--
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
   File: registration.php
   Description: Registration page to get a new user and add it to the users.sql database
   Last updated: 11/11/2025
-*/
+-->
 
 <?php
 include '../includes/database_connection.php';

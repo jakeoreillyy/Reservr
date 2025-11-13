@@ -1,10 +1,10 @@
-/*
+<!--
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
   File: index.php
   Description: landing page that lets a user to login to their account
   Last updated: 11/11/2025 
-*/
+-->
 
 <?php 
 session_start();

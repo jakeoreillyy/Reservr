@@ -1,10 +1,10 @@
-/*
+<!-- 
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
   File: database_connection.php
   Description: The code to connect to the database, so it removes the need to type it out on every page
-  Last updated: 11/11/2025
-*/
+  Last updated: 11/11/2025 
+-->
 
 <?php
 $servername = "localhost";
