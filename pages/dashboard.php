@@ -50,7 +50,7 @@ $conn->close();
           </a>
           <div class="dropdown-content">
             <a href="#"><?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?></a>
-            <a href="../index.php">Log out</a>
+            <a href="../includes/logout.php">Log out</a>
           </div>
         </li>
       </ul>
