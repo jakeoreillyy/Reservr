@@ -6,6 +6,13 @@
   Last updated: 11/11/2025
 */
 
+:root {
+  --primary-colour: #2c5f4f;
+  --primary-dark: #1e4538;
+  --primary-light: #f0f9f6;
+  --background: #f7fffd;
+}
+
 /* universal selector to flush out any margin/padding values */
 * {
   margin: 0;
@@ -17,7 +24,7 @@
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background-color: #f7fffd;
+  background-color: var(--background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -71,7 +78,7 @@ nav li.logo img:hover {
 
 /* styling all the navbar list link elements */
 nav li a {
-  color: #2c5f4f;
+  color: var(--primary-colour);
   text-decoration: none;
   padding: 8px 20px;
   border-radius: 6px;
@@ -83,13 +90,13 @@ nav li a {
 
 /* colour change when the links are hovered over */
 nav li a:hover {
-  background-color: #f0f9f6;
-  color: #1e4538;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
 }
 
 /* whichever page you're on, that list link will be a different colour to the rest (to show which you are on) */
 nav li a.active {
-  background-color: #2c5f4f;
+  background-color: var(--primary-colour);
   color: #ffffff;
 }
 
@@ -159,7 +166,7 @@ h2 {
 
 /* success message styling if the form is entered correctly */
 .alert-success {
-  background-color: #f0fdf4;
+  background-color: var(--primary-light);
   color: #166534;
   padding: 14px 16px;
   text-align: center;
@@ -234,7 +241,7 @@ select:hover {
 /* input/select colour change when clicked */
 input:focus,
 select:focus {
-  border-color: #2c5f4f;
+  border-color: var(--primary-colour);
   background-color: #ffffff;
   box-shadow: 0 0 0 3px rgba(44, 95, 79, 0.1);
 }
@@ -258,7 +265,7 @@ select {
 
 /* button styling */
 button {
-  background: linear-gradient(135deg, #2c5f4f 0%, #1e4538 100%);
+  background: linear-gradient(135deg, var(--primary-colour) 0%, var(--primary-dark) 100%);
   color: #ffffff;
   padding: 14px 32px;
   border-radius: 8px;
@@ -275,7 +282,7 @@ button {
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(44, 95, 79, 0.4);
-  background: linear-gradient(135deg, #1e4538 0%, #153329 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #153329 100%);
 }
 
 /* when clicked the button goes back down */
@@ -292,7 +299,7 @@ button:active {
 }
 
 .form-footer a {
-  color: #2c5f4f;
+  color: var(--primary-colour);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -300,7 +307,7 @@ button:active {
 }
 
 .form-footer a:hover {
-  color: #1e4538;
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
