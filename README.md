@@ -6,26 +6,25 @@ A simple and efficient **web app for managing library book reservations**.
 
 ## 🖼️ Overview
 
-Reservr provides a digital solution for handling library reservations.  
-It features a user-friendly interface for students and librarians to manage books, track availability, and handle reservations seamlessly.
+Reservr provides a **digital platform** that simplifies library reservation workflows. It offers a **user-friendly interface** for users to **browse, reserve, and manage books,** while tracking real-time availability and reservation status.
 
 ---
 
 ## ⚙️ Features
 
-✅ User registration and login  
-✅ Browse and search for books  
+✅ User registration and authentication  
+✅ Browse and search for available books  
 ✅ Reserve and cancel book reservations  
-✅ Track book availability
+✅ Track and update book availability in real-time
 
 ---
 
 ## 🧰 Built With
 
-* **HTML5** – structure and layout 
-* **CSS3** – design and responsiveness  
-* **PHP** – server-side logic  
-* **MySQL** – data storage and queries
+* **HTML5** – page structure and layout 
+* **CSS3** – design, styling, and responsiveness  
+* **PHP** – server-side logic, validation, and session management  
+* **MySQL** – persistent data storage and query handling
 
 ---
 
@@ -38,13 +37,18 @@ Reservr/
 ├── pages/
 │   ├── dashboard.php
 │   └── registration.php
-├── images/
-│   ├── logo.svg
-│   └── reading.png
+├── assets/
+│   ├── icons/
+│   │   ├── logo.svg
+│   │   ├── profile.svg
+│   │   └── search.svg
+│   └── images/
+│       └── reading.png
 ├── database/
 │   └── users.sql
 ├── includes/
-│   └── database_connection.php
+│   ├── database_connection.php
+│   └── logout.php
 └── index.php
 
 ```
