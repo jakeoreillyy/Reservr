@@ -16,7 +16,7 @@ if (isset($_SESSION['user_id'])) {
   exit();
 }
 
-// $show_reset = isset($_GET['reset']) && $_GET['reset'] === 'true';
+$show_reset = isset($_GET['reset']) && $_GET['reset'] === 'true';
 
 $error_message = "";
 
@@ -90,7 +90,7 @@ $conn->close();
         <div class="reading">
           <img src="assets/images/books.png" alt="Book Stack">
         </div>
-        <!-- <?php if ($show_reset): ?>
+        <?php if ($show_reset): ?>
           <div class="card">
             <h2>Change Your Password</h2>
             <?php if ($error_message): ?>
@@ -113,7 +113,7 @@ $conn->close();
               </div>
             </form>
           </div>
-        <?php else: ?> -->
+        <?php else: ?>
           <div class="card">
             <h2>Welcome Back</h2>
             <?php if ($error_message): ?>
@@ -132,7 +132,7 @@ $conn->close();
               </div> 
               <button type="submit">Sign In</button>
               <div class="form-footer">
-                <!-- <a href="index.php/reset=true">Forgot your password</a> -->
+                <a href="index.php/reset=true">Forgot your password</a>
               </div>
             </form>
           </div>
