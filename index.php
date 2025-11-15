@@ -24,7 +24,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = trim($_POST['email']);
   $password = $_POST['password'];
 
-  $stmt = $conn->prepare("SELECT user_id, first_name, surname, email, password_hash from users where email = ?");
+  if (
+    isset($_POST['user_id']) &&
+    isset($_POST['password'])
+) {
+
+    $id = (int)$_POST['user_id'];  // correct ID
+    $password = $conn->real_escape_string($_POST['password']);
+
+    $sql = "UPDATE users 
+            SET password = $password
+            WHERE user_id = '$id'";
+
+    echo "<pre>$sql</pre>\n";
+    
+    if ($conn->query($sql)) {
+        echo "Updated <a href='show.php'>Continue...</a>";
+    } else {
+        echo "Error: " . $conn->error . "<br>";
+        echo "<a href='edit.php?product_ids=$id'>Go back and try again</a>";
+    }
+    exit;
+}
+
+$id = (int)$_GET['user_id'];
+
+$sql = "SELECT password
+        FROM users 
+        WHERE user_id='$id'";
+
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+$password = htmlentities($row['password']);
   
   if (!$stmt) {
     error_log("Database error: " . $conn->error);
