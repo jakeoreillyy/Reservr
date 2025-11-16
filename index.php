@@ -24,6 +24,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = trim($_POST['email']);
   $password = $_POST['password'];
 
+  if (strlen($password) != 6) {
+    $errors[] = "Password must be 6 digits";
+    $validate_form = false;
+    $password_error = true;
+  } else {
+    if ($password !== $confirm_password) {
+      $errors[] = "Passwords do not match";
+      $validate_form = false;
+      $password_error = true;
+    }
+  }
+
   if (
     isset($_POST['user_id']) &&
     isset($_POST['password'])
