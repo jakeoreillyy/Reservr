@@ -17,12 +17,13 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $show_reset = isset($_GET['reset']) && $_GET['reset'] === 'true';
+$show_success = isset($_GET['reset_success']) && $_GET['reset_success'] === 'true';
 
 $error_message = "";
 $success_message = "";
 
 if ($show_success) {
-  $success_message = "Reset password successfull! You can now login <a href='../index.php'>here?</a>";
+  $success_message = "Password reset successfully! You can now login";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -33,9 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $error_message = "Enter a valid email address.";
-    } elseif (strlen($password) != 6) {
+    } elseif (strlen($new_password) != 6) {
     $error_message = "Password must be 6 digits";
-    } elseif ($password !== $confirm_password) {
+    } elseif ($new_password !== $confirm_password) {
       $error_message = "Passwords do not match";
     } else{
 
@@ -54,47 +55,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $update_stmt->bind_param("si", $password_hash, $user_id);
 
         if ($update_stmt->execute()){
+          $update_stmt->close();
+          $stmt->close();
+          $conn->close();
           header("Location: index.php?reset_success=true");
           exit();
-
         } else {
           $error_message = "This email does not exist.";
-    }
+        }
+
+        $update_stmt->close();
+      } else {
+        $error_message = "This email does not exist. <a href='pages/registration.php'>Register here?</a>";
+      }
+        $stmt->close();
   }
 } else {
   $email = trim($_POST['email']);
   $password = $_POST['password'];
 
-  if (
-    isset($_POST['user_id']) &&
-    isset($_POST['password'])
-) {
+  $stmt = $conn->prepare("SELECT user_id, first_name, surname, email, password_hash FROM users WHERE email = ?");
 
-    $id = (int)$_POST['user_id'];
-    
-
-    echo "<pre>$sql</pre>\n";
-    
-    if ($conn->query($sql)) {
-        echo "Updated <a href='show.php'>Continue...</a>";
-    } else {
-        echo "Error: " . $conn->error . "<br>";
-        echo "<a href='edit.php?product_ids=$id'>Go back and try again</a>";
-    }
-    exit;
-}
-
-$id = (int)$_GET['user_id'];
-
-$sql = "SELECT password
-        FROM users 
-        WHERE user_id='$id'";
-
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-
-$password = htmlentities($row['password']);
-  
   if (!$stmt) {
     error_log("Database error: " . $conn->error);
     $error_message = "System error, try again later or restart computer.";
@@ -120,8 +101,9 @@ $password = htmlentities($row['password']);
     } else {
       $error_message = "This email does not exist. <a href='pages/registration.php'>Register instead?</a>";
     }
+    $stmt->close();
+    }
   }
-  $stmt->close();
 }
 
 $conn->close();
@@ -161,16 +143,20 @@ $conn->close();
         </div>
         <?php if ($show_reset): ?>
           <div class="card">
-            <h2>Change Your Password</h2>
+            <h2>Reset Your Password</h2>
             <?php if ($error_message): ?>
               <div class="alert-error">
                 <?php echo $error_message; ?>
               </div>
             <?php endif; ?> 
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?reset=true';?>">
               <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="new_password" placeholder="Enter your new passord" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+              </div>
+              <div class="form-group">
+                <label for="new_password">Password</label>
+                <input type="password" id="new_password" name="new_password" placeholder="Enter your new passord" required>
               </div>
               <div class="form-group">
                 <label for="confirm_password">Confirm Password</label>
@@ -185,6 +171,11 @@ $conn->close();
         <?php else: ?>
           <div class="card">
             <h2>Welcome Back</h2>
+            <?php if ($success_message): ?>
+              <div class="alert-success">
+                <?php echo $success_message; ?>
+              </div>
+            <?php endif; ?> 
             <?php if ($error_message): ?>
               <div class="alert-error">
                 <?php echo $error_message; ?>
@@ -205,7 +196,7 @@ $conn->close();
               </div>
             </form>
           </div>
-        <!-- <?php endif; ?> -->
+        <?php endif; ?>
       </div>
     </main>
     <footer>
