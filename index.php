@@ -41,12 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     isset($_POST['password'])
 ) {
 
-    $id = (int)$_POST['user_id'];  // correct ID
-    $password = $conn->real_escape_string($_POST['password']);
-
-    $sql = "UPDATE users 
-            SET password = $password
-            WHERE user_id = '$id'";
+    $id = (int)$_POST['user_id'];
+    
+    $stmt = $conn->prepare("UPDATE users SET password_hash = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $password_hash, $user_id);
 
     echo "<pre>$sql</pre>\n";
     
