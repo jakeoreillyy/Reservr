@@ -9,7 +9,7 @@
 <?php 
 session_start();
 
-include 'includes/database_connection.php';
+require_once 'includes/database_connection.php';
 
 if (isset($_SESSION['user_id'])) {
   header("Location: pages/dashboard.php");
@@ -19,22 +19,51 @@ if (isset($_SESSION['user_id'])) {
 $show_reset = isset($_GET['reset']) && $_GET['reset'] === 'true';
 
 $error_message = "";
+$success_message = "";
+
+if ($show_success) {
+  $success_message = "Reset password successfull! You can now login <a href='../index.php'>here?</a>";
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $email = trim($_POST['email']);
-  $password = $_POST['password'];
+  if ($show_reset) {
+    $email = trim($_POST['email']);
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
 
-  if (strlen($password) != 6) {
-    $errors[] = "Password must be 6 digits";
-    $validate_form = false;
-    $password_error = true;
-  } else {
-    if ($password !== $confirm_password) {
-      $errors[] = "Passwords do not match";
-      $validate_form = false;
-      $password_error = true;
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $error_message = "Enter a valid email address.";
+    } elseif (strlen($password) != 6) {
+    $error_message = "Password must be 6 digits";
+    } elseif ($password !== $confirm_password) {
+      $error_message = "Passwords do not match";
+    } else{
+
+      $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+      $stmt->bind_param("s", $email);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      if ($result->num_rows === 1) {
+
+        $user = $result->fetch_assoc();
+        $user_id = $user['user_id'];
+        $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+
+        $update_stmt = $conn->prepare("UPDATE users SET password_hash = ? WHERE user_id = ?");
+        $update_stmt->bind_param("si", $password_hash, $user_id);
+
+        if ($update_stmt->execute()){
+          header("Location: index.php?reset_success=true");
+          exit();
+
+        } else {
+          $error_message = "This email does not exist.";
     }
   }
+} else {
+  $email = trim($_POST['email']);
+  $password = $_POST['password'];
 
   if (
     isset($_POST['user_id']) &&
@@ -43,8 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id = (int)$_POST['user_id'];
     
-    $stmt = $conn->prepare("UPDATE users SET password_hash = ? WHERE user_id = ?");
-    $stmt->bind_param("si", $password_hash, $user_id);
 
     echo "<pre>$sql</pre>\n";
     
@@ -143,7 +170,7 @@ $conn->close();
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your new passord" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+                <input type="password" id="password" name="new_password" placeholder="Enter your new passord" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
               </div>
               <div class="form-group">
                 <label for="confirm_password">Confirm Password</label>
@@ -174,7 +201,7 @@ $conn->close();
               </div> 
               <button type="submit">Sign In</button>
               <div class="form-footer">
-                <a href="index.php/reset=true">Forgot your password</a>
+                <a href="index.php?reset=true">Forgot your password</a>
               </div>
             </form>
           </div>
