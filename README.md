@@ -34,21 +34,33 @@ Reservr provides a **digital platform** that simplifies library reservation work
 Reservr/
 ├── css/
 │   └── style.css
+│
 ├── pages/
 │   ├── dashboard.php
 │   └── registration.php
+│
 ├── assets/
 │   ├── icons/
 │   │   ├── logo.svg
 │   │   ├── profile.svg
 │   │   └── search.svg
+│   ├── books/
+│   │   └── (25 images of books)
 │   └── images/
 │       └── reading.png
+│
 ├── database/
-│   └── users.sql
+│   ├── reservr_database.sql
+│   ├── reservr_extra.sql
+│   ├── reservr_table_books.sql
+│   ├── reservr_table_genres.sql
+│   ├── reservr_table_reservations.sql
+│   └── reservr_table_users.sql
+│
 ├── includes/
 │   ├── database_connection.php
 │   └── logout.php
+│
 └── index.php
 
 ```
