@@ -1,6 +1,6 @@
 # Reservr
 
-A simple and efficient **web app for managing library book reservations**.
+A simple and efficient **full-stack web application for managing library book reservations**.
 
 ---
 
