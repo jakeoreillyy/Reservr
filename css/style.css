@@ -10,7 +10,7 @@
   --primary-colour: #2c5f4f;
   --primary-dark: #1e4538;
   --primary-light: #f0f9f6;
-  --background: #fafaf9;
+  --background: #ffffff;
 }
 
 /* universal selector to flush out any margin/padding values */
@@ -29,6 +29,8 @@ body {
   display: flex;
   flex-direction: column;
   color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 /* navbar styling and forcing it to stay at the top of the screen */
@@ -65,7 +67,7 @@ nav li.logo a {
 
 /* fixed size for the logo image */
 nav li.logo img {
-  height: 36px;
+  height: 40px;
   width: auto;
   display: block;
   transition: transform 0.2s ease;
@@ -101,17 +103,26 @@ nav li a.active {
 }
 
 .dropdown {
-  padding: 10px;
+  position: relative;
+  padding: 8px;
 }
 
 .dropdown-content {
   display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  padding: 8px 0;
+  margin-top: 8px;
+  z-index: 1000;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
-  position: absolute;
-  min-width: 120px;
 }
 
 /* main section flexbox styling and positioning center on the x-axis and y-axis */
@@ -130,16 +141,15 @@ main {
   padding: 48px;
   width: 100%;
   max-width: 440px;
-  box-shadow: 0 10px 40px rgba(44, 95, 79, 0.12),
-    0 2px 8px rgba(44, 95, 79, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* when the card is hovered, it will move up slightly */
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 48px rgba(44, 95, 79, 0.15),
-    0 4px 12px rgba(44, 95, 79, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16),
+    0 2px 4px rgba(0, 0, 0, 0.23);
 }
 
 /* styling h2 elements */
@@ -229,10 +239,10 @@ label {
 /* styling the text box and dropdown select */
 input,
 select {
-  padding: 14px 16px;
-  border-radius: 8px;
-  border: 2px solid #e0e0e0;
-  background-color: #fafafa;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
   color: #1a1a1a;
   font-size: 15px;
   font-family: inherit;
@@ -258,6 +268,8 @@ select:focus {
   border-color: var(--primary-colour);
   background-color: #ffffff;
   box-shadow: 0 0 0 3px rgba(44, 95, 79, 0.1);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 /* styling how the dropdown looks */
@@ -279,24 +291,23 @@ select {
 
 /* button styling */
 button {
-  background: linear-gradient(135deg, var(--primary-colour) 0%, var(--primary-dark) 100%);
+  background: var(--primary-colour);
   color: #ffffff;
-  padding: 14px 32px;
-  border-radius: 8px;
+  padding: 12px 32px;
+  border-radius: 6px;
   border: none;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(44, 95, 79, 0.3);
+  box-shadow: 0 2px 4px rgba(44, 95, 79, 0.2);
 }
 
-/* button when hovered moves up and changes colour */
+/* button when hovered changes colour */
 button:hover {
-  transform: translateY(-1px);
+  background: var(--primary-dark);
   box-shadow: 0 6px 16px rgba(44, 95, 79, 0.4);
-  background: linear-gradient(135deg, var(--primary-dark) 0%, #153329 100%);
 }
 
 /* when clicked the button goes back down */

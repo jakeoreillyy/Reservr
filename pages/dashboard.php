@@ -42,11 +42,11 @@ $conn->close();
           <a href="dashboard.php" class="active">Home</a>
         </li>
         <li>
-          <img src="../assets/icons/search.svg" alt="Search icon">
+          <img src="../assets/icons/search.svg" alt="Search icon" style="height: 28px;">
         </li>
         <li class="dropdown">
           <a href="#">
-            <img src="../assets/icons/profile.svg" alt="Profile icon">
+            <img src="../assets/icons/profile.svg" alt="Profile icon" style="height: 28px;">
           </a>
           <div class="dropdown-content">
             <a href="#"><?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?></a>
