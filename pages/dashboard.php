@@ -38,12 +38,12 @@ $conn->close();
             <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  
-        <div class="search-box">
-          <input class="search-input" type="text" name="search" placeholder="Search..">
-          <button class="search-button" href="#">
+        <li class="search-box">
+          <input type="text" class="input-search" placeholder="Search..">
+          <button class="btn-search">
             <img src="../assets/icons/search.svg" alt="Search icon">
           </button>
-        </div>
+        </li>
         <li>
           <a href="dashboard.php" class="active">Home</a>
         </li>
