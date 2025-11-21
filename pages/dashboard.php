@@ -53,7 +53,7 @@ $conn->close();
             <img src="../assets/icons/profile.svg" alt="Profile icon" style="height: 28px;">
           </a>
           <div class="dropdown-content">
-            <a href="#"><?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
+            <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
             <a href="../includes/logout.php">Log out</a>
           </div>
         </li>

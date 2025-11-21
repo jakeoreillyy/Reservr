@@ -148,7 +148,7 @@ nav li a.active {
   width: 320px;
   height: 42px;
   padding: 0 40px 0 38px;
-  border: 1.5px solid var(--primary-light);
+  border: 1px solid var(--primary-colour);
   border-radius: 6px;
   background: #ffffff;
   font-size: 15px;
@@ -160,21 +160,28 @@ nav li a.active {
 }
 
 .input-search::focus {
-  border-color: var(--primary-colour);
+  border-color: var(--primary-dark);
   background: #ffffff;
 }
 
 .btn-search {
+  background: transparent;
   position: absolute;
   right: 10px;
-  width: 24px;
-  height: 24px;
+  height: 80%;
+  width: auto;
   border: none;
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: none;
+}
+
+.btn-search:hover {
+  background: transparent;
+  box-shadow: none;
 }
 
 .btn-search img {
