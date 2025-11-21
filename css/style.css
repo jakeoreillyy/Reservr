@@ -10,7 +10,7 @@
   --primary-colour: #2c5f4f;
   --primary-dark: #1e4538;
   --primary-light: #f0f9f6;
-  --background: #f7fffd;
+  --background: #fafaf9;
 }
 
 /* universal selector to flush out any margin/padding values */
@@ -349,22 +349,4 @@ footer {
   .input-row {
     grid-template-columns: 1fr;
   }
-}
-
-.grid-container {
-  display: grid;
-  gap: 60px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.reading img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
 }

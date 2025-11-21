@@ -113,82 +113,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </ul>
     </nav>  
     <main>
-      <div class="grid-container">
-        <div class="reading">
-          <img src="../assets/images/books.png" alt="Book Stack">
-        </div>
-        <div class="card">
-          <h2>Create Account</h2>
-          <?php if ($error_message): ?>
-            <div class="alert-error">
-              <?php echo $error_message; ?>
-            </div>
-          <?php endif; ?>        
-          <?php if ($success_message): ?>
-            <div class="alert-success">
-              <?php echo $success_message; ?>
-            </div>
-          <?php endif; ?>
-          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <div class="input-align">
-              <div class="form-group">
-                <label for="title">Title</label>
-                <select id="title" name="title" class="dropdown" required>
-                    <option value="" disabled selected>Select your title</option>
-                    <option value="Mr.">Mr.</option>
-                    <option value="Mrs.">Mrs.</option>
-                    <option value="Miss">Miss</option>
-                    <option value="Ms.">Ms.</option>
-                    <option value="Dr.">Dr.</option>
-                    <option value="Mx.">Mx.</option>
-                    <option value="None">Prefer not to say</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" placeholder="First Name" value="<?php if ($error_message) : echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; endif; ?>" required>
-              </div>
+      <div class="card">
+        <h2>Create Account</h2>
+        <?php if ($error_message): ?>
+          <div class="alert-error">
+            <?php echo $error_message; ?>
+          </div>
+        <?php endif; ?>        
+        <?php if ($success_message): ?>
+          <div class="alert-success">
+            <?php echo $success_message; ?>
+          </div>
+        <?php endif; ?>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+          <div class="input-align">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <select id="title" name="title" class="dropdown" required>
+                  <option value="" disabled selected>Select your title</option>
+                  <option value="Mr.">Mr.</option>
+                  <option value="Mrs.">Mrs.</option>
+                  <option value="Miss">Miss</option>
+                  <option value="Ms.">Ms.</option>
+                  <option value="Dr.">Dr.</option>
+                  <option value="Mx.">Mx.</option>
+                  <option value="None">Prefer not to say</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="surname">Surname</label>
-              <input type="text" id="surname" name="surname" placeholder="Surname" value="<?php if ($error_message) : echo isset($_POST['surname']) ? htmlspecialchars($_POST['surname']) : ''; endif; ?>" required>
+              <label for="first_name">First Name</label>
+              <input type="text" id="first_name" name="first_name" placeholder="First Name" value="<?php if ($error_message) : echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; endif; ?>" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="surname" placeholder="Surname" value="<?php if ($error_message) : echo isset($_POST['surname']) ? htmlspecialchars($_POST['surname']) : ''; endif; ?>" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" value="<?php if ($error_message) : echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; endif; ?>" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" value="<?php if (!$phone_error && !$form_submitted_successfully) : echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; endif ?>" required>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Street address" value="<?php if ($error_message) : echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; endif; ?>" required>
+          </div>
+          <div class="input-align">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="City" value="<?php if ($error_message) : echo isset($_POST['city']) ? htmlspecialchars($_POST['city']) : ''; endif; ?>" required>
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Email" value="<?php if ($error_message) : echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; endif; ?>" required>
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="Country" value="<?php if ($error_message) : echo isset($_POST['country']) ? htmlspecialchars($_POST['country']) : ''; endif; ?>" required>
             </div>
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="e.g. 086 123 4567" value="<?php if (!$phone_error && !$form_submitted_successfully) : echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; endif ?>" required>
-            </div>
-            <div class="form-group">
-              <label for="address">Address</label>
-              <input type="text" id="address" name="address" placeholder="Street address" value="<?php if ($error_message) : echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; endif; ?>" required>
-            </div>
-            <div class="input-align">
-              <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" placeholder="City" value="<?php if ($error_message) : echo isset($_POST['city']) ? htmlspecialchars($_POST['city']) : ''; endif; ?>" required>
-              </div>
-              <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" id="country" name="country" placeholder="Country" value="<?php if ($error_message) : echo isset($_POST['country']) ? htmlspecialchars($_POST['country']) : ''; endif; ?>" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" placeholder="Create a password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; endif; ?>" required>
-            </div>
-            <div class="form-group">
-              <label for="confirm_password">Confirm Password</label>
-              <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
-            </div>
-            <button type="submit">Create Account</button>
-            <div class="form-footer">
-              <a href="../index.php">Already have an account?</a>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; endif; ?>" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" value="<?php if (!$password_error && !$form_submitted_successfully) : echo isset($_POST['confirm_password']) ? htmlspecialchars($_POST['confirm_password']) : ''; endif; ?>" required>
+          </div>
+          <button type="submit">Create Account</button>
+          <div class="form-footer">
+            <a href="../index.php">Already have an account?</a>
+          </div>
+        </form>
       </div>
     </main>
     <footer>

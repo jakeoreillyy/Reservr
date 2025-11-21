@@ -137,67 +137,62 @@ $conn->close();
       </ul>
     </nav> 
     <main>
-      <div class="grid-container">
-        <div class="reading">
-          <img src="assets/images/books.png" alt="Book Stack">
+      <?php if ($show_reset): ?>
+        <div class="card">
+          <h2>Reset Your Password</h2>
+          <?php if ($error_message): ?>
+            <div class="alert-error">
+              <?php echo $error_message; ?>
+            </div>
+          <?php endif; ?> 
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?reset=true';?>">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="new_password">Password</label>
+              <input type="password" id="new_password" name="new_password" placeholder="Enter your new passord" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm_password">Confirm Password</label>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your new password" required>
+            </div> 
+            <button type="submit">Reset Password</button>
+            <div class="form-footer">
+              <a href="index.php">Go back to login</a>
+            </div>
+          </form>
         </div>
-        <?php if ($show_reset): ?>
-          <div class="card">
-            <h2>Reset Your Password</h2>
-            <?php if ($error_message): ?>
-              <div class="alert-error">
-                <?php echo $error_message; ?>
-              </div>
-            <?php endif; ?> 
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?reset=true';?>">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
-              </div>
-              <div class="form-group">
-                <label for="new_password">Password</label>
-                <input type="password" id="new_password" name="new_password" placeholder="Enter your new passord" required>
-              </div>
-              <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your new password" required>
-              </div> 
-              <button type="submit">Reset Password</button>
-              <div class="form-footer">
-                <a href="index.php">Go back to login</a>
-              </div>
-            </form>
-          </div>
-        <?php else: ?>
-          <div class="card">
-            <h2>Welcome Back</h2>
-            <?php if ($success_message): ?>
-              <div class="alert-success">
-                <?php echo $success_message; ?>
-              </div>
-            <?php endif; ?> 
-            <?php if ($error_message): ?>
-              <div class="alert-error">
-                <?php echo $error_message; ?>
-              </div>
-            <?php endif; ?> 
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-              </div> 
-              <button type="submit">Sign In</button>
-              <div class="form-footer">
-                <a href="index.php?reset=true">Forgot your password</a>
-              </div>
-            </form>
-          </div>
-        <?php endif; ?>
-      </div>
+      <?php else: ?>
+        <div class="card">
+          <h2>Welcome Back</h2>
+          <?php if ($success_message): ?>
+            <div class="alert-success">
+              <?php echo $success_message; ?>
+            </div>
+          <?php endif; ?> 
+          <?php if ($error_message): ?>
+            <div class="alert-error">
+              <?php echo $error_message; ?>
+            </div>
+          <?php endif; ?> 
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div> 
+            <button type="submit">Sign In</button>
+            <div class="form-footer">
+              <a href="index.php?reset=true">Forgot your password</a>
+            </div>
+          </form>
+        </div>
+      <?php endif; ?>
     </main>
     <footer>
       &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
