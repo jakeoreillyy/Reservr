@@ -38,18 +38,21 @@ $conn->close();
             <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  
+        <div class="search-box">
+          <input class="search-input" type="text" name="search" placeholder="Search..">
+          <button class="search-button" href="#">
+            <img src="../assets/icons/search.svg" alt="Search icon">
+          </button>
+        </div>
         <li>
           <a href="dashboard.php" class="active">Home</a>
-        </li>
-        <li>
-          <img src="../assets/icons/search.svg" alt="Search icon" style="height: 28px;">
         </li>
         <li class="dropdown">
           <a href="#">
             <img src="../assets/icons/profile.svg" alt="Profile icon" style="height: 28px;">
           </a>
           <div class="dropdown-content">
-            <a href="#"><?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?></a>
+            <a href="#"><?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
             <a href="../includes/logout.php">Log out</a>
           </div>
         </li>

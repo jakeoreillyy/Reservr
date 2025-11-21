@@ -137,6 +137,14 @@ nav li a.active {
   background: var(--primary-light);
 }
 
+.search-button {
+  background-color: #ffffff;
+}
+
+.search-button:hover {
+  background-color: var(--primary-light);
+}
+
 /* main section flexbox styling and positioning center on the x-axis and y-axis */
 main {
   flex: 1;
