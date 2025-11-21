@@ -125,6 +125,7 @@ $conn->close();
       <ul>
         <li class="logo">
           <a href="index.php">
+            Reservr
             <img src="assets/icons/logo.svg" alt="Library Logo">
           </a>
         </li>  

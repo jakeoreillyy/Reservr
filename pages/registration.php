@@ -101,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <ul>
         <li class="logo">
           <a href="../index.php">
+            Reservr
             <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  

@@ -35,15 +35,16 @@ $conn->close();
       <ul>
         <li class="logo">
           <a href="../index.php">
+            Reservr
             <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  
-        <li class="search-box">
-          <input type="text" class="input-search" placeholder="Search..">
-          <button class="btn-search">
-            <img src="../assets/icons/search.svg" alt="Search icon">
+        <form action="#" method="GET" class="search-box">
+          <input type="text" name="q" class="input-search" placeholder="Search..">
+          <button class="btn-search" type="submit">
+            <img src="../assets/icons/search.svg" alt="Search">
           </button>
-        </li>
+        </form>
         <li>
           <a href="dashboard.php" class="active">Home</a>
         </li>
