@@ -125,13 +125,25 @@ nav li a.active {
   display: block;
 }
 
+.dropdown-content a {
+  display: block;
+  padding: 10px 16px;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background: var(--primary-light);
+}
+
 /* main section flexbox styling and positioning center on the x-axis and y-axis */
 main {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
 /* card styling for the forms on index.php and registration.php */
