@@ -59,6 +59,14 @@ $conn->close();
         </li>
       </ul>
     </nav> 
+    <main>
+      <h2>
+        Top Sellers
+      </h2>
+      <div class="container">
+
+      </div>
+    </main>
     <footer>
       &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
     </footer> 

@@ -12,7 +12,7 @@
   --primary-light: #f0f9f6;
   --background: #ffffff;
   --text-primary: #1a1a1a;
-  --text-secondary: #d1d5db;
+  --text-secondary: #b0b4b9;
   --nav-height: 64px;
 }
 
@@ -59,7 +59,7 @@ nav ul {
 
 /* reservr logo on the left of the navbar */
 nav li.logo {
-  margin-right: 24px;
+  margin-right: auto;
 }
 
 /* positioning the logo in the center of its area on the y-axis */
@@ -92,13 +92,12 @@ nav li.logo img:hover {
   position: relative;
   display: flex;
   align-items: center;
-  margin-left: auto;
   margin-right: 16px;
 }
 
 .input-search {
   width: 280px;
-  height: 40px;
+  height: 36px;
   padding: 0 40px 0 16px;
   border: 1px solid var(--primary-colour);
   border-radius: 6px;
@@ -138,11 +137,13 @@ nav li.logo img:hover {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
+  box-shadow: none;
 }
 
 .btn-search:hover {
   background: transparent;
   transform: scale(1.1);
+  box-shadow: none;
 }
 
 .btn-search img {
@@ -155,14 +156,14 @@ nav li.logo img:hover {
 nav li a {
   color: var(--primary-colour);
   text-decoration: none;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 6px;
   font-weight: 500;
   font-size: 15px;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  height: 40px;
+  height: 36px;
 }
 
 /* colour change when the links are hovered over */
@@ -186,13 +187,15 @@ nav li a.active {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  width: 40px;
+  height: 36px;
+  width: 36px;
 }
 
 .dropdown > a img {
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
+  transform: scale(1.3);
+  margin-left: 12px;
 }
 
 .dropdown-content {

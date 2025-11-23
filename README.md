@@ -59,8 +59,6 @@ Reservr/
 │
 ├── includes/
 │   ├── database_connection.php
-│   ├── header.php
-│   ├── footer.php
 │   └── logout.php
 │
 └── index.php
