@@ -31,7 +31,7 @@ $conn->close();
     <title>Reservr | Dashborad</title>
 </head>
 <body>
-    <nav>
+    <nav class="dashboard-nav">
       <ul>
         <li class="logo">
           <a href="../index.php">
@@ -39,22 +39,24 @@ $conn->close();
             <img src="../assets/icons/logo.svg" alt="Library icon">
           </a>
         </li>  
-        <form action="#" method="GET" class="search-box">
-          <input type="text" name="q" class="input-search" placeholder="Search..">
-          <button class="btn-search" type="submit">
-            <img src="../assets/icons/search.svg" alt="Search">
-          </button>
-        </form>
-        <li>
-          <a href="dashboard.php" class="active">Home</a>
+        <li class="search-container">
+          <form action="#" method="GET" class="search-box">
+            <input type="text" name="q" class="input-search" placeholder="Search..">
+            <button class="btn-search" type="submit">
+              <img src="../assets/icons/search.svg" alt="Search">
+            </button>
+          </form>
         </li>
-        <li class="dropdown">
-          <a href="#">
-            <img src="../assets/icons/profile.svg" alt="Profile icon" style="height: 28px;">
-          </a>
-          <div class="dropdown-content">
-            <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
-            <a href="../includes/logout.php">Log out</a>
+        <li class="nav-right">
+          <a href="dashboard.php" class="active">Home</a>
+          <div class="dropdown">
+            <a href="#">
+              <img src="../assets/icons/profile.svg" alt="Profile icon" style="height: 28px;">
+            </a>
+            <div class="dropdown-content">
+              <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
+              <a href="../includes/logout.php">Log out</a>
+            </div>
           </div>
         </li>
       </ul>
