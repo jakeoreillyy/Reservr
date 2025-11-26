@@ -61,7 +61,7 @@ if (!isset($_SESSION['user_id'])) {
         </li>
       </ul>
     </nav> 
-    <main>
+    <main class="dash-main">
       <h1>
         Reservr
       </h1>

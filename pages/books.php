@@ -69,23 +69,31 @@ $book = $result->fetch_assoc();
         </li>
       </ul>
     </nav> 
-    <main>
-      <div class="seller">
-        <h2>
-          Top Sellers
-        </h2>
-      </div>
-      <div class="container">
-        <div class="content">
-          <img src="../<?php echo $book['image_path']; ?>" class="book-cover" alt="Book cover" />
-          <h1><?php echo $book['book_title']; ?></h1>
-            <p><?php echo $book['author']; ?></p>
-            <p><?php echo $book['year']; ?></p>
-            <p>Edition: <?php echo $book['edition']; ?></p>
-            <p><?php echo $book['genre_description']; ?></p>
-          <form id="reserve-form">
-            <button type="submit">Reserve</button>
-          </form>
+    <main class="dash-main">
+      <div class="page-container">
+        <div class="section-header">
+          <h2>
+            Discover our most popular books
+          </h2>
+          <p>Top Sellers</p>
+        </div>
+        <div class="books-container">
+          <div class="book-card">
+            <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
+            <div class="book-details">
+              <h3 class="book-title"><?php echo $book['book_title']; ?></h3>
+              <p class="book-author"><?php echo $book['author']; ?></p>
+              <div class="book-meta">
+                <span class="book-year"><?php echo $book['year']; ?></span>
+                <span class="separator">•</span>
+                <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
+              </div>
+              <span class="book-genre"><?php echo $book['genre_description']; ?></span>
+              <form class="reserve-form">
+                <button type="submit" class="btn-reserve">Reserve Book</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </li>
       </ul>
     </nav>  
-    <main>
+    <main class="auth-main">
       <div class="card">
         <h2>Create Account</h2>
         <?php if ($error_message): ?>

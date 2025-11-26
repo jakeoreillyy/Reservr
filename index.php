@@ -137,7 +137,7 @@ $conn->close();
         </li>
       </ul>
     </nav> 
-    <main>
+    <main class="auth-main">
       <?php if ($show_reset): ?>
         <div class="card">
           <h2>Reset Your Password</h2>
