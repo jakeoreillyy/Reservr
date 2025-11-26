@@ -463,6 +463,23 @@ button:active {
   transform: translateY(0);
 }
 
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+.book-cover {
+  width: 80px;
+  object-fit: contain;
+}
+
 .form-footer {
   text-align: center;
   margin-top: 20px;

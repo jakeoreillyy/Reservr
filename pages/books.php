@@ -16,6 +16,14 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$sql = "SELECT b.*, g.genre_description
+FROM books b
+JOIN genres g ON b.genre = g.genre_id
+ORDER BY b.book_id ASC
+LIMIT 1";
+$result = $conn->query($sql);
+$book = $result->fetch_assoc();
+
 ?>
 
 <!DOCTYPE html>
@@ -47,8 +55,8 @@ if (!isset($_SESSION['user_id'])) {
           </form>
         </li>
         <li class="nav-right">
-          <a href="dashboard.php" class="active">Home</a>
-          <a href="books.php">Books</a>
+          <a href="dashboard.php">Home</a>
+          <a href="books.php" class="active">Books</a>
           <div class="dropdown">
             <a href="#">
               <img src="../assets/icons/profile.svg" alt="Profile icon" style="height: 28px;">
@@ -62,9 +70,22 @@ if (!isset($_SESSION['user_id'])) {
       </ul>
     </nav> 
     <main>
-      <h1>
-        Reservr
-      </h1>
+      <h2>
+        Top Sellers
+      </h2>
+      <div class="container">
+        <div class="content">
+          <img src="../<?php echo $book['image_path']; ?>" class="book-cover" alt="Book cover" />
+          <h1><?php echo $book['book_title']; ?></h1>
+            <p><?php echo $book['author']; ?></p>
+            <p><?php echo $book['year']; ?></p>
+            <p>Edition: <?php echo $book['edition']; ?></p>
+            <p><?php echo $book['genre_description']; ?></p>
+          <form id="reserve-form">
+            <button type="submit">Reserve</button>
+          </form>
+        </div>
+      </div>
     </main>
     <footer>
       &#169; <?php echo date("Y"); $conn->close();?> Reservr Library Services. All rights reserved.
