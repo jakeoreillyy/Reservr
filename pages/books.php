@@ -70,9 +70,11 @@ $book = $result->fetch_assoc();
       </ul>
     </nav> 
     <main>
-      <h2>
-        Top Sellers
-      </h2>
+      <div class="seller">
+        <h2>
+          Top Sellers
+        </h2>
+      </div>
       <div class="container">
         <div class="content">
           <img src="../<?php echo $book['image_path']; ?>" class="book-cover" alt="Book cover" />

@@ -461,6 +461,12 @@ button:active {
   transform: translateY(0);
 }
 
+.seller {
+  width: 100%;
+  padding-left: 12px;
+  border-bottom: 1px solid var(--text-primary);
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -469,8 +475,9 @@ button:active {
 .content {
   text-align: center;
   padding: 2rem;
-  border-radius: 10px;
   max-width: 300px;
+  border: 1px solid var(--text-primary);
+  border-radius: 10px;
 }
 
 .book-cover {
