@@ -1,8 +1,8 @@
 <!--
   Project: Reservr, library reservation system
   Author: Jake O'Reilly
-  File: dashboard.php
-  Description: Once logged in this page will be the landing, able to search, view, and reserve books
+  File: books.php
+  Description: Users will able to search, view, and reserve books
   Last updated: 11/11/2025
 -->
 
@@ -20,9 +20,9 @@ $sql = "SELECT b.*, g.genre_description
 FROM books b
 JOIN genres g ON b.genre = g.genre_id
 ORDER BY b.book_id ASC
-LIMIT 1";
+LIMIT 5";
+
 $result = $conn->query($sql);
-$book = $result->fetch_assoc();
 
 ?>
 
@@ -78,22 +78,24 @@ $book = $result->fetch_assoc();
           <p>Top Sellers</p>
         </div>
         <div class="books-container">
-          <div class="book-card">
-            <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
-            <div class="book-details">
-              <h3 class="book-title"><?php echo $book['book_title']; ?></h3>
-              <p class="book-author"><?php echo $book['author']; ?></p>
-              <div class="book-meta">
-                <span class="book-year"><?php echo $book['year']; ?></span>
-                <span class="separator">•</span>
-                <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
+          <?php while ($book = $result->fetch_assoc()): ?>
+            <div class="book-card">
+              <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
+              <div class="book-details">
+                <h3 class="book-title"><?php echo $book['book_title']; ?></h3>
+                <p class="book-author"><?php echo $book['author']; ?></p>
+                <div class="book-meta">
+                  <span class="book-year"><?php echo $book['year']; ?></span>
+                  <span class="separator">•</span>
+                  <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
+                </div>
+                <span class="book-genre"><?php echo $book['genre_description']; ?></span>
+                <form class="reserve-form">
+                  <button type="submit" class="btn-reserve">Reserve Book</button>
+                </form>
               </div>
-              <span class="book-genre"><?php echo $book['genre_description']; ?></span>
-              <form class="reserve-form">
-                <button type="submit" class="btn-reserve">Reserve Book</button>
-              </form>
             </div>
-          </div>
+          <?php endwhile; ?>
         </div>
       </div>
     </main>
