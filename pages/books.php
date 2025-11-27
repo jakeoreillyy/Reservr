@@ -17,11 +17,20 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $books_per_page = 5;
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$current_page = max(1, $current_page);
+$offset = ($current_page - 1) * $books_per_page;
+
+$count_sql = "SELECT COUNT(*) as total FROM books";
+$count_result = $conn->query($count_sql);
+$total_books = $count_result->fetch_assoc()['total'];
+$total_pages = ceil($total_books / $books_per_page);
 
 $sql = "SELECT b.*, g.genre_description
 FROM books b
 JOIN genres g ON b.genre = g.genre_id
-ORDER BY b.book_id ASC";
+ORDER BY b.book_id ASC
+LIMIT $books_per_page OFFSET $offset";
 
 $result = $conn->query($sql);
 
@@ -77,7 +86,7 @@ $result = $conn->query($sql);
           <h2>
             Discover our most popular books
           </h2>
-          <p>Top Sellers</p>
+          <p>Top Sellers (Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
         </div>
         <div class="books-container">
           <?php while ($book = $result->fetch_assoc()): ?>
@@ -99,6 +108,25 @@ $result = $conn->query($sql);
             </div>
           <?php endwhile; ?>
         </div>
+        <?php if ($total_pages > 1): ?>
+          <div class="pages">
+            <?php if ($current_page > 1): ?>
+              <a href="?page=<?php echo $current_page -1; ?>" class="pages-btn"><- Previous</a>
+            <?php endif; ?>
+            <div class="page-numbers">
+              <?php for ($i=1; $i <= $total_pages; $i++): ?>
+                <?php if ($i == $current_page): ?>
+                  <span class="page-numbers active"><?php echo $i; ?></span>
+                <?php else: ?>
+                  <a href="?page=<?php echo $i; ?>" class="page-number"><?php echo $i; ?></a>
+                <?php endif; ?>
+              <?php endfor; ?>
+            </div>
+            <?php if ($current_page < $total_pages): ?>
+              <a href="?page=<?php echo $current_page + 1; ?>" class="page-btn">Next -></a>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
       </div>
     </main>
     <footer>
