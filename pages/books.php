@@ -109,21 +109,21 @@ $result = $conn->query($sql);
           <?php endwhile; ?>
         </div>
         <?php if ($total_pages > 1): ?>
-          <div class="pages">
+          <div class="pagination">
             <?php if ($current_page > 1): ?>
-              <a href="?page=<?php echo $current_page -1; ?>" class="page-btn"><- Previous</a>
+              <a href="?page=<?php echo $current_page -1; ?>" class="pagination-control"><- Previous</a>
             <?php endif; ?>
-            <div class="page-numbers">
+            <div class="pagination-numbers">
               <?php for ($i=1; $i <= $total_pages; $i++): ?>
                 <?php if ($i == $current_page): ?>
-                  <span class="page-numbers active"><?php echo $i; ?></span>
+                  <span class="pagination-number active"><?php echo $i; ?></span>
                 <?php else: ?>
-                  <a href="?page=<?php echo $i; ?>" class="page-number"><?php echo $i; ?></a>
+                  <a href="?page=<?php echo $i; ?>" class="pagination-number"><?php echo $i; ?></a>
                 <?php endif; ?>
               <?php endfor; ?>
             </div>
             <?php if ($current_page < $total_pages): ?>
-              <a href="?page=<?php echo $current_page + 1; ?>" class="page-btn">Next -></a>
+              <a href="?page=<?php echo $current_page + 1; ?>" class="pagination-control">Next -></a>
             <?php endif; ?>
           </div>
         <?php endif; ?>
