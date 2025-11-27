@@ -111,7 +111,7 @@ $result = $conn->query($sql);
         <?php if ($total_pages > 1): ?>
           <div class="pages">
             <?php if ($current_page > 1): ?>
-              <a href="?page=<?php echo $current_page -1; ?>" class="pages-btn"><- Previous</a>
+              <a href="?page=<?php echo $current_page -1; ?>" class="page-btn"><- Previous</a>
             <?php endif; ?>
             <div class="page-numbers">
               <?php for ($i=1; $i <= $total_pages; $i++): ?>
