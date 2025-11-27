@@ -21,18 +21,45 @@ $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $current_page = max(1, $current_page);
 $offset = ($current_page - 1) * $books_per_page;
 
-$count_sql = "SELECT COUNT(*) as total FROM books";
-$count_result = $conn->query($count_sql);
+$search = isset($_GET['q']) ? trim($_GET['q']) : '';
+
+$count_sql = "SELECT COUNT(*) as total FROM books b JOIN genres g ON b.genre = g.genre_id";
+if ($search) {
+  $count_sql .= " WHERE b.book_title LIKE ? OR b.author LIKE ? OR g.genre_description LIKE ?";
+}
+
+$count_stmt = $conn->prepare($count_sql);
+if ($search) {
+  $search_param = "%$search%";
+  $count_stmt->bind_param("sss", $search_param, $search_param, $search_param);
+}
+
+$count_stmt->execute();
+$count_result = $count_stmt->get_result();
 $total_books = $count_result->fetch_assoc()['total'];
 $total_pages = ceil($total_books / $books_per_page);
 
 $sql = "SELECT b.*, g.genre_description
 FROM books b
-JOIN genres g ON b.genre = g.genre_id
-ORDER BY b.book_id ASC
-LIMIT $books_per_page OFFSET $offset";
+JOIN genres g ON b.genre = g.genre_id";
 
-$result = $conn->query($sql);
+if ($search) {
+  $sql .= " WHERE b.book_title LIKE ? OR b.author LIKE ? OR g.genre_description LIKE ?";
+}
+
+$sql .= " ORDER BY b.book_id ASC LIMIT ? OFFSET ?";
+
+$stmt = $conn->prepare($sql);
+
+if ($search) {
+  $search_param = "%$search%";
+  $stmt->bind_param("sssii", $search_param, $search_param, $search_param, $books_per_page, $offset);
+} else {
+  $stmt->bind_param("ii", $books_per_page, $offset);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
 
 ?>
 
@@ -83,10 +110,26 @@ $result = $conn->query($sql);
     <main class="dash-main">
       <div class="page-container">
         <div class="section-header">
-          <h2>
-            Discover our most popular books
-          </h2>
-          <p>Top Sellers (Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
+          <?php if ($search): ?>
+            <h2>
+              Search results for "<?php echo htmlspecialchars($search); ?>"
+            </h2>
+            <p>Found <?php echo $total_books; ?> result<?php echo $total_books != 1 ? 's' : ''; ?>)</p>
+            <?php if ($total_pages > 1): ?>
+              <p>(Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
+            <?php endif; ?>
+          <?php else: ?>
+            <h2>
+              Discover our most popular books
+            </h2>
+            <p>Top Sellers (Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
+          <?php endif; ?>
+          <?php if ($search && $total_books == 0): ?>
+            <h2>
+              No books/authors found matching "<?php echo htmlspecialchars($search); ?>"
+              <a href="books.php">View all books</a>
+            </h2>
+          <?php endif; ?>
         </div>
         <div class="books-container">
           <?php while ($book = $result->fetch_assoc()): ?>
