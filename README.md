@@ -36,8 +36,10 @@ Reservr/
 │   └── style.css
 │
 ├── pages/
+│   ├── books.php
 │   ├── dashboard.php
-│   └── registration.php
+│   ├── registration.php
+│   └── reservation.php
 │
 ├── assets/
 │   ├── icons/
@@ -47,7 +49,7 @@ Reservr/
 │   ├── books/
 │   │   └── (25 images of books)
 │   └── images/
-│       └── reading.png
+│       └── book.webp
 │
 ├── database/
 │   ├── reservr_database.sql

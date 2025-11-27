@@ -58,6 +58,7 @@ if (!isset($_SESSION['user_id'])) {
       <h1>
         Reservr
       </h1>
+      <img src="../assets/images/book.webp" class="home-book" alt="Book image">
     </main>
     <footer>
       &#169; <?php echo date("Y"); $conn->close();?> Reservr Library Services. All rights reserved.
