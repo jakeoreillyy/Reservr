@@ -114,7 +114,7 @@ $result = $stmt->get_result();
             <h2>
               Search results for "<?php echo htmlspecialchars($search); ?>"
             </h2>
-            <p>Found <?php echo $total_books; ?> result<?php echo $total_books != 1 ? 's' : ''; ?>)</p>
+            <p>Found <?php echo $total_books; ?> result<?php echo $total_books != 1 ? 's' : ''; ?></p>
             <?php if ($total_pages > 1): ?>
               <p>(Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
             <?php endif; ?>
@@ -124,14 +124,14 @@ $result = $stmt->get_result();
             </h2>
             <p>Top Sellers (Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
           <?php endif; ?>
+        </div>
+        <div class="books-container">
           <?php if ($search && $total_books == 0): ?>
-            <h2>
+            <h2 class="error-search">
               No books/authors found matching "<?php echo htmlspecialchars($search); ?>"
               <a href="books.php">View all books</a>
             </h2>
           <?php endif; ?>
-        </div>
-        <div class="books-container">
           <?php while ($book = $result->fetch_assoc()): ?>
             <div class="book-card">
               <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />

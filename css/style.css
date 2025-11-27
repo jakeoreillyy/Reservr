@@ -529,7 +529,24 @@ main.dash-main {
   gap: 24px;
 }
 
+.error-search {
+  font-size: 24px;
+  color: var(--text-primary);
+  margin-top: 100px;
+}
+
+.error-search a {
+  color: var(--primary-colour);
+  padding-left: 10px;
+  text-decoration: none;
+}
+
+.error-search a:hover {
+  color: var(--primary-dark);
+}
+
 .book-card {
+  max-width: 250px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
