@@ -536,6 +536,11 @@ main.dash-main {
   height: 180px;
   object-fit:contain;
   background: var(--primary-light);
+  transition: 0.2s ease;
+}
+
+.book-image:hover {
+  transform: scale(1.1);
 }
 
 .book-details {
