@@ -16,6 +16,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$books_per_page = 5;
+
 $sql = "SELECT b.*, g.genre_description
 FROM books b
 JOIN genres g ON b.genre = g.genre_id
@@ -34,7 +36,7 @@ $result = $conn->query($sql);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Reservr | Dashborad</title>
+    <title>Reservr | Books</title>
 </head>
 <body>
     <nav class="dashboard-nav">
@@ -62,6 +64,7 @@ $result = $conn->query($sql);
             </a>
             <div class="dropdown-content">
               <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
+              <a href="reservations.php">View your books</a>              
               <a href="../includes/logout.php">Log out</a>
             </div>
           </div>

@@ -273,6 +273,15 @@ nav.dashboard-nav .nav-right {
   gap: 12px;
 }
 
+nav.dashboard-nav.no-search ul {
+  grid-template-columns: auto 1fr;
+}
+
+nav.dashboard-nav.no-search .nav-right {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
 /* main section flexbox styling and positioning center on the x-axis and y-axis */
 main.auth-main {
   flex: 1;

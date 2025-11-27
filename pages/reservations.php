@@ -1,23 +1,3 @@
-<!--
-  Project: Reservr, library reservation system
-  Author: Jake O'Reilly
-  File: dashboard.php
-  Description: Once logged in this page will be the landing, able to search, view, and reserve books
-  Last updated: 11/11/2025
--->
-
-<?php 
-session_start();
-
-include '../includes/database_connection.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Reservr | Home</title>
+    <title>Reservr | Book Reservations</title>
 </head>
 <body>
     <nav class="dashboard-nav no-search">
@@ -55,12 +35,10 @@ if (!isset($_SESSION['user_id'])) {
       </ul>
     </nav> 
     <main class="dash-main">
-      <h1>
-        Reservr
-      </h1>
+      
     </main>
     <footer>
-      &#169; <?php echo date("Y"); $conn->close();?> Reservr Library Services. All rights reserved.
+      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
     </footer> 
 </body>
 </html>
