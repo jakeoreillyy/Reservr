@@ -19,8 +19,7 @@ if (!isset($_SESSION['user_id'])) {
 $sql = "SELECT b.*, g.genre_description
 FROM books b
 JOIN genres g ON b.genre = g.genre_id
-ORDER BY b.book_id ASC
-LIMIT 5";
+ORDER BY b.book_id ASC";
 
 $result = $conn->query($sql);
 
