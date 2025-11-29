@@ -12,7 +12,7 @@
   --primary-light: #f0f9f6;
   --background: #ffffff;
   --text-primary: #1a1a1a;
-  --text-secondary: #343434;
+  --text-secondary: #575656;
   --nav-height: 64px;
 }
 
@@ -199,7 +199,7 @@ nav li a.active {
 .dropdown-content {
   display: none;
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   right: 0;
   background: #ffffff;
   border-radius: 8px;
@@ -235,7 +235,7 @@ nav li a.active {
   background: transparent;
 }
 
-.dropdown-content a:not(first-child):hover {
+.dropdown-content a:not(:first-child):hover {
   background: var(--primary-light);
   color: var(--primary-dark);
 }
