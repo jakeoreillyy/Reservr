@@ -9,7 +9,7 @@
 <?php 
 session_start();
 
-include '../includes/database_connection.php';
+require_once '../includes/database_connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");

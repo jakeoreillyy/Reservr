@@ -9,7 +9,7 @@
 <?php 
 session_start();
 
-include '../includes/database_connection.php';
+require_once '../includes/database_connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");
@@ -145,7 +145,9 @@ $result = $stmt->get_result();
                 </div>
                 <span class="book-genre"><?php echo $book['genre_description']; ?></span>
                 <form class="reserve-form">
-                  <button type="submit" class="btn-reserve">Reserve Book</button>
+                  <a href="reservations.php" class="btn-reserve">
+                    Reserve Book
+                  </a>
                 </form>
               </div>
             </div>

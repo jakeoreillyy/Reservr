@@ -465,11 +465,6 @@ button:hover {
   box-shadow: 0 6px 16px rgba(44, 95, 79, 0.4);
 }
 
-/* when clicked the button goes back down */
-button:active {
-  transform: translateY(0);
-}
-
 .form-footer {
   text-align: center;
   margin-top: 20px;
@@ -611,6 +606,28 @@ main.dash-main {
   font-size: 12px;
   font-weight: 600;
   width: fit-content;
+}
+
+/* button styling */
+.btn-reserve {
+  text-decoration: none;
+  background: var(--primary-colour);
+  color: #ffffff;
+  padding: 12px 32px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  box-shadow: 0 2px 4px rgba(44, 95, 79, 0.2);
+}
+
+/* button when hovered changes colour */
+.btn-reserve:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 6px 16px rgba(44, 95, 79, 0.4);
 }
 
 .reserve-form {

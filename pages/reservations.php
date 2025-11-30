@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+require_once '../includes/database_connection.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +45,25 @@
         </li>
       </ul>
     </nav> 
-    <main class="dash-main">
-      
+    <main class="section-reserve">
+      <div class="container">
+        <div class="content-img">
+          <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
+        </div>
+        <div class="container-info">
+          <h3 class="book-title"><?php echo $book['book_title']; ?></h3>
+          <p class="book-author"><?php echo $book['author']; ?></p>
+          <div class="book-meta">
+            <span class="book-year"><?php echo $book['year']; ?></span>
+            <span class="separator">•</span>
+            <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
+          </div>
+          <span class="book-genre"><?php echo $book['genre_description']; ?></span>
+          <form class="reserve-form">
+            <button type="submit" class="btn-reserve">Reserve Book</button>
+          </form>
+        </div>
+      </div>
     </main>
     <footer>
       &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.

@@ -7,7 +7,7 @@
 -->
 
 <?php
-include '../includes/database_connection.php';
+require_once '../includes/database_connection.php';
 
 $error_message = "";
 $success_message = "";
