@@ -41,10 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  $phone = preg_replace('/\D/', '', $phone);
-
-  if (strlen($phone) != 10) {
-    $errors[] = "Phone number must be 10 digits";
+  if (!preg_match('/^(\+353|0)[1-9]\d{8}$/', $phone)) {
+    $errors[] = "Invalid Irish phone format";
     $validate_form = false;
     $phone_error = true;
   }
@@ -59,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO users (title, first_name, surname, email, phone, address, city, country, password_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
     if (!$stmt) {
-      error_log("Database error: " . $conn->error);
-      $error_message = "System error, try again later or restart computer.";
+      error_log("Database prepare failed: " . $conn->error);
+      $error_message = "A system error occured. Please try again later.";
     } else {
       $stmt->bind_param("sssssssss", $title, $first_name, $surname, $email, $phone, $address, $city, $country, $password_hash);
 

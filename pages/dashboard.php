@@ -60,8 +60,9 @@ if (!isset($_SESSION['user_id'])) {
       </h1>
       <img src="../assets/images/book.webp" class="home-book" alt="Book image">
     </main>
+    <?php $conn->close(); ?>
     <footer>
-      &#169; <?php echo date("Y"); $conn->close();?> Reservr Library Services. All rights reserved.
+      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
     </footer> 
 </body>
 </html>

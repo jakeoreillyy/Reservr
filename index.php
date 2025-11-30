@@ -77,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt = $conn->prepare("SELECT user_id, first_name, surname, email, password_hash FROM users WHERE email = ?");
 
   if (!$stmt) {
-    error_log("Database error: " . $conn->error);
-    $error_message = "System error, try again later or restart computer.";
+    error_log("Database prepare failed: " . $conn->error);
+    $error_message = "A system error occured. Please try again later.";
   } else {
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $user = $result->fetch_assoc();
 
       if (password_verify($password, $user['password_hash'])) {
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['surname'] = $user['surname'];

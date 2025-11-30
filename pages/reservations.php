@@ -6,6 +6,21 @@ require_once '../includes/database_connection.php';
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");
     exit();
+
+$isbn = $_GET['isbn'] ?? '';
+
+$stmt = $conn->prepare("SELECT b.*, g.genre_description FROM books b JOIN genres g ON b.genre = g.genre_id WHERE b.isbn = ?");
+$stmt->bind_param("s", $isbn);
+$stmt->execute();
+$book = $stmt->get_result()->fetch_assoc();
+
+if ($book) {
+  header("Location: books.php");
+  exit();
+}
+
+$stmt->close();
+$conn->close();
 }
 ?>
 
@@ -30,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
           </a>
         </li>  
         <li class="nav-right">
-          <a href="dashboard.php" class="active">Home</a>
+          <a href="dashboard.php">Home</a>
           <a href="books.php">Books</a>
           <div class="dropdown">
             <a href="#">
@@ -59,9 +74,7 @@ if (!isset($_SESSION['user_id'])) {
             <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
           </div>
           <span class="book-genre"><?php echo $book['genre_description']; ?></span>
-          <form class="reserve-form">
             <button type="submit" class="btn-reserve">Reserve Book</button>
-          </form>
         </div>
       </div>
     </main>

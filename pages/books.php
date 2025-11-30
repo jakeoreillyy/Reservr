@@ -145,7 +145,7 @@ $result = $stmt->get_result();
                 </div>
                 <span class="book-genre"><?php echo $book['genre_description']; ?></span>
                 <form class="reserve-form">
-                  <a href="reservations.php" class="btn-reserve">
+                  <a href="reservations.php?isbn=<?php echo $book['isbn']; ?>" class="btn-reserve">
                     Reserve Book
                   </a>
                 </form>
@@ -156,7 +156,7 @@ $result = $stmt->get_result();
         <?php if ($total_pages > 1): ?>
           <div class="pagination">
             <?php if ($current_page > 1): ?>
-              <a href="?page=<?php echo $current_page -1; ?> <?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-control"><- Previous</a>
+              <a href="?page=<?php echo $current_page -1; ?><?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-control"><- Previous</a>
             <?php endif; ?>
             <div class="pagination-numbers">
               <?php for ($i=1; $i <= $total_pages; $i++): ?>
@@ -174,8 +174,9 @@ $result = $stmt->get_result();
         <?php endif; ?>
       </div>
     </main>
+    <?php $conn->close(); ?>
     <footer>
-      &#169; <?php echo date("Y"); $conn->close();?> Reservr Library Services. All rights reserved.
+      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
     </footer> 
 </body>
 </html>
