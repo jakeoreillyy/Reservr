@@ -6,6 +6,7 @@ require_once '../includes/database_connection.php';
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.php");
     exit();
+}
 
 $isbn = $_GET['isbn'] ?? '';
 
@@ -14,14 +15,13 @@ $stmt->bind_param("s", $isbn);
 $stmt->execute();
 $book = $stmt->get_result()->fetch_assoc();
 
-if ($book) {
+if (!$book) {
   header("Location: books.php");
   exit();
 }
 
 $stmt->close();
 $conn->close();
-}
 ?>
 
 <!DOCTYPE html>
@@ -63,17 +63,17 @@ $conn->close();
     <main class="section-reserve">
       <div class="container">
         <div class="content-img">
-          <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
+          <img src="../<?php echo $book['image_path']; ?>" alt="Book cover" />
         </div>
         <div class="container-info">
-          <h3 class="book-title"><?php echo $book['book_title']; ?></h3>
-          <p class="book-author"><?php echo $book['author']; ?></p>
-          <div class="book-meta">
-            <span class="book-year"><?php echo $book['year']; ?></span>
-            <span class="separator">•</span>
-            <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
+          <h3><?php echo $book['book_title']; ?></h3>
+          <p><?php echo $book['author']; ?></p>
+          <div>
+            <span><?php echo $book['year']; ?></span>
+            <span>•</span>
+            <span>Edition <?php echo $book['edition']; ?></span>
           </div>
-          <span class="book-genre"><?php echo $book['genre_description']; ?></span>
+          <span><?php echo $book['genre_description']; ?></span>
             <button type="submit" class="btn-reserve">Reserve Book</button>
         </div>
       </div>
