@@ -100,7 +100,7 @@ $result = $stmt->get_result();
             </a>
             <div class="dropdown-content">
               <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
-              <a href="reservations.php">View your books</a>              
+              <a href="view.php">View your books</a>              
               <a href="../includes/logout.php">Log out</a>
             </div>
           </div>

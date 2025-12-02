@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['reserve']) && empty($e
   $count_stmt->close();
     
   if ($reservation_count >= 3) {
-    $error_message = "You can only reserve up to 3 books at a time. <a href='reservations.php'>View your reservations</a>";
+    $error_message = "You can only reserve up to 3 books at a time. <a href='view.php'>View your reservations</a>";
   } else {
     $check_stmt = $conn->prepare("SELECT reservation_id FROM reservations WHERE isbn = ? AND email = ?");
     $check_stmt->bind_param("ss", $isbn, $email);
@@ -97,7 +97,7 @@ $conn->close();
             </a>
             <div class="dropdown-content">
               <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
-              <a href="reservations.php">View your books</a>
+              <a href="view.php">View your books</a>
               <a href="../includes/logout.php">Log out</a>
             </div>
           </div>

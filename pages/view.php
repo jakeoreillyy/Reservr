@@ -1,11 +1,3 @@
-<!--
-  Project: Reservr, library reservation system
-  Author: Jake O'Reilly
-  File: dashboard.php
-  Description: Once logged in this page will be the landing, able to search, view, and reserve books
-  Last updated: 11/11/2025
--->
-
 <?php 
 session_start();
 
@@ -16,6 +8,25 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$error_message = "";
+$success_message = "";
+
+$sql = "SELECT * FROM reservations ORDER BY reservation_id";
+
+if (isset($_GET['reservation_id'])) {
+    $id = (int)$_GET['reservation_id'];
+
+    $sql = "DELETE FROM reservations WHERE reservation_id = $id";
+
+    if ($conn->query($sql)) {
+        $success_message = "Deleted Successfully";
+    } else {
+        $error_message = "Error: " . $conn->error;
+    }
+
+} else {
+    $error_message = "No ID provided.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>Reservr | Home</title>
+    <title>Reservr | Book Reservations</title>
 </head>
 <body>
     <nav class="dashboard-nav no-search">
@@ -39,7 +50,7 @@ if (!isset($_SESSION['user_id'])) {
           </a>
         </li>  
         <li class="nav-right">
-          <a href="dashboard.php" class="active">Home</a>
+          <a href="dashboard.php">Home</a>
           <a href="books.php">Books</a>
           <div class="dropdown">
             <a href="#">
@@ -47,20 +58,15 @@ if (!isset($_SESSION['user_id'])) {
             </a>
             <div class="dropdown-content">
               <a href="#">Logged in as: <?php echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : ''; ?></a>
-              <a href="view.php">View your books</a>
+              <a href="reservations.php">View your books</a>
               <a href="../includes/logout.php">Log out</a>
             </div>
           </div>
         </li>
       </ul>
     </nav> 
-    <main class="dash-main">
-      <h1>
-        Reservr
-      </h1>
-      <img src="../assets/images/book.webp" class="home-book" alt="Book image">
+    <main>
     </main>
-    <?php $conn->close(); ?>
     <footer>
       &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
     </footer> 
