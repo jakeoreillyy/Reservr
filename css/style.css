@@ -674,6 +674,21 @@ main.dash-main {
   text-decoration: underline;
 }
 
+.go-back {
+  font-size: 18px;
+  padding: 16px 0 0 16px;
+}
+
+.go-back a {
+  text-decoration: none;
+  color: var(--primary-colour);
+}
+
+.go-back a:hover {
+  text-decoration: underline;
+  color: var(--primary-dark);
+}
+
 footer {
   background: #ffffff;
   color: #666;

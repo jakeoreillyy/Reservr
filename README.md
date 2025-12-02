@@ -21,10 +21,10 @@ Reservr provides a **digital platform** that simplifies library reservation work
 
 ## 🧰 Built With
 
-* **HTML5** – page structure and layout.
-* **CSS3** – design, styling, and responsiveness.  
-* **PHP** – server-side logic, validation, and session management.
-* **MySQL** – persistent data storage and query handling.
+- **HTML5** – page structure and layout.
+- **CSS3** – design, styling, and responsiveness.
+- **PHP** – server-side logic, validation, and session management.
+- **MySQL** – persistent data storage and query handling.
 
 ---
 
@@ -39,7 +39,8 @@ Reservr/
 │   ├── books.php
 │   ├── dashboard.php
 │   ├── registration.php
-│   └── reservation.php
+│   ├── reservations.php
+│   └── view.php
 │
 ├── assets/
 │   ├── icons/

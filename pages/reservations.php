@@ -104,24 +104,26 @@ $conn->close();
         </li>
       </ul>
     </nav> 
-<main class="auth-main">
-      <div class="card">
+<main>
+      <div class="container">
+        <div class="go-back">
+          <a href="books.php">← Back to Books</a>
+        </div>
         <h2>Reserve Book</h2>
-        
-        <?php if ($error_message): ?>
-          <div class="alert-error">
-            <?php echo $error_message; ?>
-          </div>
-        <?php endif; ?>
-        
-        <?php if ($success_message): ?>
-          <div class="alert-success">
-            <?php echo $success_message; ?>
-          </div>
-        <?php endif; ?>
-        
-        <div class="book-reserve-container">
+        <div class="content-image">
           <img src="../<?php echo htmlspecialchars($book['image_path']); ?>" alt="Book cover" class="reserve-book-image" />
+        </div>
+        <div class="centent-info">
+          <?php if ($error_message): ?>
+            <div class="alert-error">
+              <?php echo $error_message; ?>
+            </div>
+          <?php endif; ?>
+          <?php if ($success_message): ?>
+            <div class="alert-success">
+              <?php echo $success_message; ?>
+            </div>
+          <?php endif; ?>
           <div class="reserve-book-info">
             <h3 class="reserve-book-title"><?php echo htmlspecialchars($book['book_title']); ?></h3>
             <p class="book-author"><?php echo htmlspecialchars($book['author']); ?></p>

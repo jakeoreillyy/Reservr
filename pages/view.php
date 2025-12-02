@@ -39,7 +39,7 @@ if (isset($_GET['reservation_id'])) {
     }
     $delete_stmt->close();
   } else {
-    $error_message = "Reservation not found";
+    $error_message = "No reservations found";
     $isbn_stmt ->close();
   }
 
