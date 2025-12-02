@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['reserve']) && empty($e
     if ($existing) {
       $error_message = "You have already reserved this book.";
     } else {
-      $insert_stmt = $conn->prepare("INSERT INTO reservations (isbn, email, reservation_date) VALUES (?, ?, CURDATE())");
+      $insert_stmt = $conn->prepare("INSERT INTO reservations (isbn, email) VALUES (?, ?)");
       $insert_stmt->bind_param("ss", $isbn, $email);
             
       if ($insert_stmt->execute()) {

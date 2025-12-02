@@ -161,7 +161,7 @@ $result = $stmt->get_result();
                 <?php if ($i == $current_page): ?>
                   <span class="pagination-number active"><?php echo $i; ?></span>
                 <?php else: ?>
-                  <a href="?page=<?php echo $i; ?> <?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-number"><?php echo $i; ?></a>
+                  <a href="?page=<?php echo $i; ?><?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-number"><?php echo $i; ?></a>
                 <?php endif; ?>
               <?php endfor; ?>
             </div>
