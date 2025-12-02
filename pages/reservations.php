@@ -30,37 +30,37 @@ if ($book['reserved'] === 'Y') {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['reserve']) && empty($error_message)) {
   $count_stmt = $conn->prepare("SELECT COUNT(*) as count FROM reservations WHERE email = ?");
-    $count_stmt->bind_param("s", $email);
-    $count_stmt->execute();
-    $count_result = $count_stmt->get_result();
-    $reservation_count = $count_result->fetch_assoc()['count'];
-    $count_stmt->close();
+  $count_stmt->bind_param("s", $email);
+  $count_stmt->execute();
+  $count_result = $count_stmt->get_result();
+  $reservation_count = $count_result->fetch_assoc()['count'];
+  $count_stmt->close();
     
-    if ($reservation_count >= 3) {
-        $error_message = "You can only reserve up to 3 books at a time. <a href='reservations.php'>View your reservations</a>";
-    } else {
-        $check_stmt = $conn->prepare("SELECT reservation_id FROM reservations WHERE isbn = ? AND email = ?");
-        $check_stmt->bind_param("ss", $isbn, $email);
-        $check_stmt->execute();
-        $existing = $check_stmt->get_result()->fetch_assoc();
-        $check_stmt->close();
+  if ($reservation_count >= 3) {
+    $error_message = "You can only reserve up to 3 books at a time. <a href='reservations.php'>View your reservations</a>";
+  } else {
+    $check_stmt = $conn->prepare("SELECT reservation_id FROM reservations WHERE isbn = ? AND email = ?");
+    $check_stmt->bind_param("ss", $isbn, $email);
+    $check_stmt->execute();
+    $existing = $check_stmt->get_result()->fetch_assoc();
+    $check_stmt->close();
         
-        if ($existing) {
-            $error_message = "You have already reserved this book.";
-        } else {
-            $insert_stmt = $conn->prepare("INSERT INTO reservations (isbn, email, reservation_date) VALUES (?, ?, CURDATE())");
-            $insert_stmt->bind_param("ss", $isbn, $email);
+    if ($existing) {
+      $error_message = "You have already reserved this book.";
+    } else {
+      $insert_stmt = $conn->prepare("INSERT INTO reservations (isbn, email, reservation_date) VALUES (?, ?, CURDATE())");
+      $insert_stmt->bind_param("ss", $isbn, $email);
             
-            if ($insert_stmt->execute()) {
-              $update_stmt = $conn->prepare("UPDATE books SET reserved = 'Y' WHERE isbn = ?");
-              $update_stmt->bind_param("s", $isbn);
-              $update_stmt->execute();
-              $update_stmt->close();
+      if ($insert_stmt->execute()) {
+        $update_stmt = $conn->prepare("UPDATE books SET reserved = 'Y' WHERE isbn = ?");
+        $update_stmt->bind_param("s", $isbn);
+        $update_stmt->execute();
+        $update_stmt->close();
                 
-              $success_message = "Book reserved successfully! <a href='books.php'>Browse more books</a>";
-            } else {
-                $error_message = "Failed to reserve book. Please try again.";
-            }
+        $success_message = "Book reserved successfully! <a href='books.php'>Browse more books</a>";
+      } else {
+        $error_message = "Failed to reserve book. Please try again.";
+      }
     $insert_stmt->close();
     }
   }
