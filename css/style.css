@@ -174,8 +174,7 @@ nav li a:hover {
 
 /* whichever page you're on, that list link will be a different colour to the rest (to show which you are on) */
 nav li a.active {
-  background-color: var(--primary-colour);
-  color: #ffffff;
+  text-decoration: underline;
 }
 
 .dropdown {
