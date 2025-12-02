@@ -8,25 +8,37 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$email = $_SESSION['email'];
 $error_message = "";
 $success_message = "";
 
-$sql = "SELECT * FROM reservations ORDER BY reservation_id";
-
 if (isset($_GET['reservation_id'])) {
-    $id = (int)$_GET['reservation_id'];
+  $id = (int)$_GET['reservation_id'];
 
-    $sql = "DELETE FROM reservations WHERE reservation_id = $id";
+  $delete_stmt = $conn->prepare("DELETE FROM reservations WHERE reservation_id = ? AND email = ?");
 
-    if ($conn->query($sql)) {
-        $success_message = "Deleted Successfully";
-    } else {
-        $error_message = "Error: " . $conn->error;
-    }
+  $delete_stmt->bind_param("is", $id, $email);
+  
+  if ($delete_stmt->execute()) {
+    $update_stmt = $conn->prepare("UPDATE books SET reserved = 'N' WHERE isbn = (SELECT isbn FROM reservations WHERE reservation_id = ?)");
+    $update_stmt->bind_param("i", $id);
+    $update_stmt->execute();
+    $update_stmt->close();
 
-} else {
-    $error_message = "No ID provided.";
+    $success_message = "Reservation removed";
+  } else {
+    $error_message = "Failed removing: " . $conn->error;
+  }
+
+  $delete_stmt->close();
 }
+
+$stmt = $conn->prepare("SELECT b.*, g.genre_description FROM books b JOIN genres g ON b.genre = g.genre_id");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$reservations = $stmt->get_result();
+$stmt->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +78,35 @@ if (isset($_GET['reservation_id'])) {
       </ul>
     </nav> 
     <main>
+      <?php if ($error_message): ?>
+        <div class="alert-error">
+          <?php echo $error_message; ?>
+        </div>
+      <?php endif; ?>
+      
+      <?php if ($success_message): ?>
+        <div class="alert-success">
+          <?php echo $success_message; ?>
+        </div>
+      <?php endif; ?>
+      <div class="book-card">
+        <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
+        <div class="book-details">
+          <h3 class="book-title"><?php echo $book['book_title']; ?></h3>
+          <p class="book-author"><?php echo $book['author']; ?></p>
+          <div class="book-meta">
+            <span class="book-year"><?php echo $book['year']; ?></span>
+            <span class="separator">•</span>
+            <span class="book-edition">Edition <?php echo $book['edition']; ?></span>
+          </div>
+          <span class="book-genre"><?php echo $book['genre_description']; ?></span>
+          <form class="reserve-form">
+            <a href="reservations.php?isbn=<?php echo $book['isbn']; ?>" class="btn-reserve">
+              Reserve Book
+            </a>
+          </form>
+        </div>
+      </div>
     </main>
     <footer>
       &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.

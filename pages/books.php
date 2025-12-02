@@ -39,9 +39,7 @@ $count_result = $count_stmt->get_result();
 $total_books = $count_result->fetch_assoc()['total'];
 $total_pages = ceil($total_books / $books_per_page);
 
-$sql = "SELECT b.*, g.genre_description
-FROM books b
-JOIN genres g ON b.genre = g.genre_id";
+$sql = "SELECT b.*, g.genre_description FROM books b JOIN genres g ON b.genre = g.genre_id";
 
 if ($search) {
   $sql .= " WHERE b.book_title LIKE ? OR b.author LIKE ? OR g.genre_description LIKE ?";
