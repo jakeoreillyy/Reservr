@@ -20,6 +20,24 @@ if (!$book) {
   exit();
 }
 
+$stmt = $conn->prepare("INSERT INTO reservayions (isbn, email VALUES (?, ?)");
+    
+if (!$stmt) {
+  error_log("Database prepare failed: " . $conn->error);
+  $error_message = "A system error occured. Please try again later.";
+} else {
+  $stmt->bind_param("ss", $isbn, $email);
+
+  try {
+    if ($stmt->execute()) {
+      $success_message = "Book reserved successfully! You can now view your reservations <a href='#'>here</a>";
+      $form_submitted_successfully = true;
+    }
+  } catch (mysqli_sql_exception $e) {
+    if ($book_reserved > 3) {
+        $error_message = "You can only reserve up to 3 books at a time. <a href='#'>Unreserve here?</a>";
+    }
+  }}
 $stmt->close();
 $conn->close();
 ?>
