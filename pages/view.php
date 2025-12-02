@@ -15,22 +15,35 @@ $success_message = "";
 if (isset($_GET['reservation_id'])) {
   $id = (int)$_GET['reservation_id'];
 
-  $delete_stmt = $conn->prepare("DELETE FROM reservations WHERE reservation_id = ? AND email = ?");
-  $delete_stmt->bind_param("is", $id, $email);
-  
-  if ($delete_stmt->execute()) {
-    $update_stmt = $conn->prepare("UPDATE books b SET b.reserved = 'N' WHERE b.isbn = ?");
-    $update_stmt->bind_param("i", $id);
-    $update_stmt->execute();
-    $update_stmt->close();
+  $isbn_stmt = $conn->prepare("SELECT isbn FROM reservations WHERE reservation_id = ? AND email = ?");
+  $isbn_stmt->bind_param("is", $id, $email);
+  $isbn_stmt->execute();
+  $isbn_result = $isbn_stmt->get_result();
 
-    $success_message = "Reservation cencelled successfully";
+  if ($isbn_row = $isbn_result->fetch_assoc()) {
+    $isbn = $isbn_row['isbn'];
+    $isbn_stmt->close();
+
+    $delete_stmt = $conn->prepare("DELETE FROM reservations WHERE reservation_id = ? AND email = ?");
+    $delete_stmt->bind_param("is", $id, $email);
+  
+    if ($delete_stmt->execute()) {
+      $update_stmt = $conn->prepare("UPDATE books b SET b.reserved = 'N' WHERE b.isbn = ?");
+      $update_stmt->bind_param("i", $isbn);
+      $update_stmt->execute();
+      $update_stmt->close();
+
+      $success_message = "Reservation cencelled successfully";
+    } else {
+      $error_message = "Failed to cancel reservation: " . $conn->error;
+    }
+    $delete_stmt->close();
   } else {
-    $error_message = "Failed to cancel reservation: " . $conn->error;
+    $error_message = "Reservation not found";
+    $isbn_stmt ->close();
   }
 
-  $delete_stmt->close();
-}
+} 
 
 $stmt = $conn->prepare("SELECT r.reservation_id, r.reservation_date, b.*, g.genre_description FROM reservations r JOIN books b ON r.isbn = b.isbn JOIN genres g ON b.genre = g.genre_id WHERE r.email = ? ORDER BY r.reservation_date DESC");
 $stmt->bind_param("s", $email);
