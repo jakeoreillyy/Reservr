@@ -8,37 +8,63 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$error_message = "";
+$success_message = "";
+$email = $_SESSION['email'];
 $isbn = $_GET['isbn'] ?? '';
 
 $stmt = $conn->prepare("SELECT b.*, g.genre_description FROM books b JOIN genres g ON b.genre = g.genre_id WHERE b.isbn = ?");
 $stmt->bind_param("s", $isbn);
 $stmt->execute();
 $book = $stmt->get_result()->fetch_assoc();
+$stmt->close();
 
 if (!$book) {
   header("Location: books.php");
   exit();
 }
 
-$stmt = $conn->prepare("INSERT INTO reservayions (isbn, email VALUES (?, ?)");
-    
-if (!$stmt) {
-  error_log("Database prepare failed: " . $conn->error);
-  $error_message = "A system error occured. Please try again later.";
-} else {
-  $stmt->bind_param("ss", $isbn, $email);
+if ($book['reserved'] === 'Y') {
+  $error_message = "This book is already reserved";
+}
 
-  try {
-    if ($stmt->execute()) {
-      $success_message = "Book reserved successfully! You can now view your reservations <a href='#'>here</a>";
-      $form_submitted_successfully = true;
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['reserve']) && empty($error_message)) {
+  $count_stmt = $conn->prepare("SELECT COUNT(*) as count FROM reservations WHERE email = ?");
+    $count_stmt->bind_param("s", $email);
+    $count_stmt->execute();
+    $count_result = $count_stmt->get_result();
+    $reservation_count = $count_result->fetch_assoc()['count'];
+    $count_stmt->close();
+    
+    if ($reservation_count >= 3) {
+        $error_message = "You can only reserve up to 3 books at a time. <a href='reservations.php'>View your reservations</a>";
+    } else {
+        $check_stmt = $conn->prepare("SELECT reservation_id FROM reservations WHERE isbn = ? AND email = ?");
+        $check_stmt->bind_param("ss", $isbn, $email);
+        $check_stmt->execute();
+        $existing = $check_stmt->get_result()->fetch_assoc();
+        $check_stmt->close();
+        
+        if ($existing) {
+            $error_message = "You have already reserved this book.";
+        } else {
+            $insert_stmt = $conn->prepare("INSERT INTO reservations (isbn, email, reservation_date) VALUES (?, ?, CURDATE())");
+            $insert_stmt->bind_param("ss", $isbn, $email);
+            
+            if ($insert_stmt->execute()) {
+              $update_stmt = $conn->prepare("UPDATE books SET reserved = 'Y' WHERE isbn = ?");
+              $update_stmt->bind_param("s", $isbn);
+              $update_stmt->execute();
+              $update_stmt->close();
+                
+              $success_message = "Book reserved successfully! <a href='books.php'>Browse more books</a>";
+            } else {
+                $error_message = "Failed to reserve book. Please try again.";
+            }
+    $insert_stmt->close();
     }
-  } catch (mysqli_sql_exception $e) {
-    if ($book_reserved > 3) {
-        $error_message = "You can only reserve up to 3 books at a time. <a href='#'>Unreserve here?</a>";
-    }
-  }}
-$stmt->close();
+  }
+}
 $conn->close();
 ?>
 
@@ -78,21 +104,47 @@ $conn->close();
         </li>
       </ul>
     </nav> 
-    <main class="section-reserve">
-      <div class="container">
-        <div class="content-img">
-          <img src="../<?php echo $book['image_path']; ?>" alt="Book cover" />
-        </div>
-        <div class="container-info">
-          <h3><?php echo $book['book_title']; ?></h3>
-          <p><?php echo $book['author']; ?></p>
-          <div>
-            <span><?php echo $book['year']; ?></span>
-            <span>•</span>
-            <span>Edition <?php echo $book['edition']; ?></span>
+<main class="auth-main">
+      <div class="card">
+        <h2>Reserve Book</h2>
+        
+        <?php if ($error_message): ?>
+          <div class="alert-error">
+            <?php echo $error_message; ?>
           </div>
-          <span><?php echo $book['genre_description']; ?></span>
-            <button type="submit" class="btn-reserve">Reserve Book</button>
+        <?php endif; ?>
+        
+        <?php if ($success_message): ?>
+          <div class="alert-success">
+            <?php echo $success_message; ?>
+          </div>
+        <?php endif; ?>
+        
+        <div class="book-reserve-container">
+          <img src="../<?php echo htmlspecialchars($book['image_path']); ?>" alt="Book cover" class="reserve-book-image" />
+          <div class="reserve-book-info">
+            <h3 class="reserve-book-title"><?php echo htmlspecialchars($book['book_title']); ?></h3>
+            <p class="book-author"><?php echo htmlspecialchars($book['author']); ?></p>
+            <div class="book-meta">
+              <span><?php echo htmlspecialchars($book['year']); ?></span>
+              <span class="seperator">•</span>
+              <span>Edition <?php echo htmlspecialchars($book['edition']); ?></span>
+            </div>
+            <span class="book-genre"><?php echo htmlspecialchars($book['genre_description']); ?></span>
+            <?php if ($book['reserved'] === 'N' && empty($success_message)): ?>
+              <form method="POST" class="reserve-form">
+                <input type="hidden" name="reserve" value="1">
+                <button type="submit">Reserve This Book</button>
+              </form>
+            <?php elseif ($book['reserved'] === 'Y' && empty($success_message)): ?>
+              <div class="alert-error">
+                This book is currently reserved by another user.
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
+        <div class="form-footer">
+          <a href="books.php">← Back to Books</a>
         </div>
       </div>
     </main>
