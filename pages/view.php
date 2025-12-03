@@ -133,7 +133,9 @@ $stmt->close();
           </div>
         <?php else: ?>
           <p>You have no active reservations</p>
-          <a href="books.php">Browse books</a>
+          <div class="go-back">
+            <a href="books.php">Browse books</a>
+          </div>
         <?php endif; ?>
       </div>
     </main>
