@@ -90,7 +90,7 @@ $stmt->close();
       </ul>
     </nav> 
     <main class="dash-main">
-      <div class="page-container">
+      <div class="page-container view">
         <?php if ($error_message): ?>
           <div class="alert-error">
             <?php echo $error_message; ?>
@@ -109,7 +109,7 @@ $stmt->close();
         <?php if ($reservations->num_rows > 0): ?>
           <div class="books-container">
             <?php while ($book = $reservations->fetch_assoc()): ?>
-              <div class="book-card">
+              <div class="book-card view">
                 <img src="../<?php echo $book['image_path']; ?>" class="book-image" alt="Book cover" />
                 <div class="book-details">
                   <h3 class="book-title"><?php echo $book['book_title']; ?></h3>

@@ -519,9 +519,13 @@ main.dash-main {
 
 .books-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 225px);
+  grid-template-columns: repeat(auto-fit, minmax(225px, auto));
   justify-content: center;
   gap: 24px;
+}
+
+.books-container.view {
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
 }
 
 .error-search {
@@ -547,6 +551,10 @@ main.dash-main {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
+}
+
+.book-card.view {
+  max-width: 300px;
 }
 
 .book-image {
