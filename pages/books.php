@@ -25,13 +25,13 @@ $search = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 $count_sql = "SELECT COUNT(*) as total FROM books b JOIN genres g ON b.genre = g.genre_id";
 if ($search) {
-  $count_sql .= " WHERE b.book_title LIKE ? OR b.author LIKE ? OR g.genre_description LIKE ?";
+  $count_sql .= " WHERE CONCAT(b.book_title, ' ', b.author, ' ', g.genre_description) LIKE ?";
 }
 
 $count_stmt = $conn->prepare($count_sql);
 if ($search) {
   $search_param = "%$search%";
-  $count_stmt->bind_param("sss", $search_param, $search_param, $search_param);
+  $count_stmt->bind_param("s", $search_param);
 }
 
 $count_stmt->execute();
@@ -42,7 +42,7 @@ $total_pages = ceil($total_books / $books_per_page);
 $sql = "SELECT b.*, g.genre_description FROM books b JOIN genres g ON b.genre = g.genre_id";
 
 if ($search) {
-  $sql .= " WHERE b.book_title LIKE ? OR b.author LIKE ? OR g.genre_description LIKE ?";
+  $sql .= " WHERE CONCAT(b.book_title, ' ', b.author, ' ', g.genre_description) LIKE ?";
 }
 
 $sql .= " ORDER BY b.book_id ASC LIMIT ? OFFSET ?";
@@ -51,7 +51,7 @@ $stmt = $conn->prepare($sql);
 
 if ($search) {
   $search_param = "%$search%";
-  $stmt->bind_param("sssii", $search_param, $search_param, $search_param, $books_per_page, $offset);
+  $stmt->bind_param("sii", $search_param, $books_per_page, $offset);
 } else {
   $stmt->bind_param("ii", $books_per_page, $offset);
 }
