@@ -139,8 +139,6 @@ $stmt->close();
         <?php endif; ?>
       </div>
     </main>
-    <footer>
-      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
-    </footer> 
+    <?php include '../includes/footer.php'; ?>
 </body>
 </html>

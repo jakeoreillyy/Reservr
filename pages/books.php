@@ -173,8 +173,6 @@ $result = $stmt->get_result();
       </div>
     </main>
     <?php $conn->close(); ?>
-    <footer>
-      &#169; <?php echo date("Y"); ?> Reservr Library Services. All rights reserved.
-    </footer> 
+    <?php include '../includes/footer.php'; ?>
 </body>
 </html>
