@@ -697,6 +697,12 @@ main.dash-main {
   color: var(--primary-dark);
 }
 
+.container h2 {
+  margin-bottom: 100px;
+  padding: 20px 0 40px 0;
+  border-bottom: 2px solid #e5e7eb;
+}
+
 .reserve-content {
   display: grid;
   grid-template-columns: 300px 1fr;
