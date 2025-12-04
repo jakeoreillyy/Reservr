@@ -68,7 +68,7 @@ if (!isset($_SESSION['user_id'])) {
               Your Library, Simplified
             </h3>
             <p class="description">
-              Browse, Reserve, and manage your favorite books in one place. Discover our collection and start your reading journey today.
+              Browse, reserve, and manage your favorite books in one place. Discover our collection and start your reading journey today.
             </p>
             <div class="buttons">
               <a href="books.php" class="button browse">Books</a>
