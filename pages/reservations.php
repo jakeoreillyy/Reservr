@@ -104,49 +104,48 @@ $conn->close();
         </li>
       </ul>
     </nav> 
-<main>
+    <main>
       <div class="container">
         <div class="go-back">
           <a href="books.php">← Back to Books</a>
         </div>
         <h2>Reserve Book</h2>
-        <div class="content-image">
-          <img src="../<?php echo htmlspecialchars($book['image_path']); ?>" alt="Book cover" class="reserve-book-image" />
-        </div>
-        <div class="centent-info">
-          <?php if ($error_message): ?>
-            <div class="alert-error">
-              <?php echo $error_message; ?>
-            </div>
-          <?php endif; ?>
-          <?php if ($success_message): ?>
-            <div class="alert-success">
-              <?php echo $success_message; ?>
-            </div>
-          <?php endif; ?>
-          <div class="reserve-book-info">
-            <h3 class="reserve-book-title"><?php echo htmlspecialchars($book['book_title']); ?></h3>
-            <p class="book-author"><?php echo htmlspecialchars($book['author']); ?></p>
-            <div class="book-meta">
-              <span><?php echo htmlspecialchars($book['year']); ?></span>
-              <span class="seperator">•</span>
-              <span>Edition <?php echo htmlspecialchars($book['edition']); ?></span>
-            </div>
-            <span class="book-genre"><?php echo htmlspecialchars($book['genre_description']); ?></span>
-            <?php if ($book['reserved'] === 'N' && empty($success_message)): ?>
-              <form method="POST" class="reserve-form">
-                <input type="hidden" name="reserve" value="1">
-                <button type="submit">Reserve This Book</button>
-              </form>
-            <?php elseif ($book['reserved'] === 'Y' && empty($success_message)): ?>
+        <div class="reserve-content">
+          <div class="content-image">
+            <img src="../<?php echo htmlspecialchars($book['image_path']); ?>" alt="Book cover" class="reserve-book-image" />
+          </div>
+          <div class="content-info">
+            <?php if ($error_message): ?>
               <div class="alert-error">
-                This book is currently reserved by another user.
+                <?php echo $error_message; ?>
               </div>
             <?php endif; ?>
+            <?php if ($success_message): ?>
+              <div class="alert-success">
+                <?php echo $success_message; ?>
+              </div>
+            <?php endif; ?>
+            <div class="reserve-book-info">
+              <h3 class="reserve-book-title"><?php echo htmlspecialchars($book['book_title']); ?></h3>
+              <p class="book-author"><?php echo htmlspecialchars($book['author']); ?></p>
+              <div class="book-meta">
+                <span><?php echo htmlspecialchars($book['year']); ?></span>
+                <span class="seperator">•</span>
+                <span>Edition <?php echo htmlspecialchars($book['edition']); ?></span>
+              </div>
+              <span class="book-genre"><?php echo htmlspecialchars($book['genre_description']); ?></span>
+              <?php if ($book['reserved'] === 'N' && empty($success_message)): ?>
+                <form method="POST" class="reserve-form">
+                  <input type="hidden" name="reserve" value="1">
+                  <button type="submit">Reserve This Book</button>
+                </form>
+              <?php elseif ($book['reserved'] === 'Y' && empty($success_message)): ?>
+                <div class="alert-error">
+                  This book is currently reserved by another user.
+                </div>
+              <?php endif; ?>
+            </div>
           </div>
-        </div>
-        <div class="form-footer">
-          <a href="books.php">← Back to Books</a>
         </div>
       </div>
     </main>
