@@ -29,8 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = trim($_POST['password']);
   $confirm_password = trim($_POST['confirm_password']);
 
-  if (preg_match('/^\d{6}$/', $password)) {
-    $errors[] = "Password must be exactl 6 digits";
+  if (strlen($password) != 6) {
+    $errors[] = "Password must be exactly 6 digits";
     $validate_form = false;
     $password_error = true;
   } else {
