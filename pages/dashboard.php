@@ -54,11 +54,29 @@ if (!isset($_SESSION['user_id'])) {
         </li>
       </ul>
     </nav> 
-    <main class="dash-main">
-      <h1>
-        Reservr
-      </h1>
-      <img src="../assets/images/book.webp" class="home-book" alt="Book image">
+    <main>
+      <section class="main-section">
+        <div class="section-content">
+          <div class="main-details">
+            <h2 class="title">
+              Reservr
+            </h2>
+            <h3 class="subtitle">
+              Your Library, Simplified
+            </h3>
+            <p class="description">
+              Browse, Reserve, and manage your favorite books in one place. Discover our collection and start your reading journey today.
+            </p>
+            <div class="buttons">
+              <a href="books.php" class="button-browse">Browse Books</a>
+              <a href="view.php" class="button-view">Your Reservations</a>
+            </div>
+          </div>
+          <div class="main-image-wrapper">
+            <img src="../assets/images/book.webp" alt="Book image" class="main-image">
+          </div>
+        </div>
+      </section>
     </main>
     <?php $conn->close(); ?>
     <footer>
