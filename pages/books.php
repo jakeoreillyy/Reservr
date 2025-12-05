@@ -165,7 +165,7 @@ $result = $stmt->get_result();
         <div class="books-container">
           <?php if ($search && $total_books == 0): ?>
             <h2 class="error-search">
-              No books/authors found matching "<?php echo htmlspecialchars($search); ?>"
+              No books/authors found matching "<?php echo htmlspecialchars($search); ?> with your current genre"
               <a href="books.php">View all books</a>
             </h2>
           <?php endif; ?>
