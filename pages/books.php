@@ -32,11 +32,16 @@ if ($search) {
   $count_sql .= " WHERE CONCAT(b.book_title, ' ', b.author, ' ', g.genre_description) LIKE ?";
 }
 
+if ($current_genre > 0) {
+  $count_sql .= ($search ? " AND" : " WHERE") . " b.genre = ?";
+}
+
 $count_stmt = $conn->prepare($count_sql);
 if ($search && $current_genre > 0) {
   $search_param = "%$search%";
   $count_stmt->bind_param("si", $search_param, $current_genre);
 } elseif ($search) {
+  $search_param = "%$search%";
   $count_stmt->bind_param("s", $search_param);
 } elseif ($current_genre > 0) {
   $count_stmt->bind_param("i", $current_genre);
@@ -65,6 +70,7 @@ if ($search && $current_genre > 0) {
   $search_param = "%$search%";
   $stmt->bind_param("siii", $search_param, $current_genre, $books_per_page, $offset);
 } elseif ($search) {
+  $search_param = "%$search%";
   $stmt->bind_param("sii",$search_param, $books_per_page, $offset);
 } elseif ($current_genre > 0) {
   $stmt->bind_param("iii",$current_genre, $books_per_page, $offset);
@@ -99,6 +105,9 @@ $result = $stmt->get_result();
         </li>  
         <li class="search-container">
           <form action="books.php" method="GET" class="search-box">
+            <?php if ($current_genre): ?>
+              <input type="hidden" name="genre" value="<?php echo $current_genre; ?>">
+            <?php endif; ?>
             <input type="text" name="q" class="input-search" placeholder="Search..">
             <button class="btn-search" type="submit">
               <img src="../assets/icons/search.svg" alt="Search">
@@ -184,19 +193,19 @@ $result = $stmt->get_result();
         <?php if ($total_pages > 1): ?>
           <div class="pagination">
             <?php if ($current_page > 1): ?>
-              <a href="?page=<?php echo $current_page -1; ?><?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-control"><- Previous</a>
+              <a href="?page=<?php echo $current_page -1; ?><?php echo $search ? '&q=' . urlencode($search) : ''; ?><?php echo $current_genre ? '&genre=' . $current_genre : ''; ?>" class="pagination-control"><- Previous</a>
             <?php endif; ?>
             <div class="pagination-numbers">
               <?php for ($i=1; $i <= $total_pages; $i++): ?>
                 <?php if ($i == $current_page): ?>
                   <span class="pagination-number active"><?php echo $i; ?></span>
                 <?php else: ?>
-                  <a href="?page=<?php echo $i; ?><?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-number"><?php echo $i; ?></a>
+                  <a href="?page=<?php echo $i; ?><?php echo $search ? '&q=' . urlencode($search) : ''; ?><?php echo $current_genre ? '&genre=' . $current_genre : ''; ?>" class="pagination-number"><?php echo $i; ?></a>
                 <?php endif; ?>
               <?php endfor; ?>
             </div>
             <?php if ($current_page < $total_pages): ?>
-              <a href="?page=<?php echo $current_page + 1; ?> <?php echo $search ? '&q=' . urlencode($search) : ''; ?>" class="pagination-control">Next -></a>
+              <a href="?page=<?php echo $current_page + 1; ?> <?php echo $search ? '&q=' . urlencode($search) : ''; ?><?php echo $current_genre ? '&genre=' . $current_genre : ''; ?>" class="pagination-control">Next -></a>
             <?php endif; ?>
           </div>
         <?php endif; ?>
