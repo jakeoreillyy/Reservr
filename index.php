@@ -11,6 +11,7 @@ session_start();
 
 require_once 'includes/database_connection.php';
 
+// check if users logged in
 if (isset($_SESSION['user_id'])) {
   header("Location: pages/dashboard.php");
   exit();
@@ -26,12 +27,14 @@ if ($show_success) {
   $success_message = "Password reset successfully! You can now login";
 }
 
+//get user input
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($show_reset) {
     $email = trim($_POST['email']);
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
+    //validation
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $error_message = "Enter a valid email address.";
     } elseif (strlen($new_password) != 6) {
@@ -49,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user = $result->fetch_assoc();
         $user_id = $user['user_id'];
+        //hash password for security
         $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
         $update_stmt = $conn->prepare("UPDATE users SET password_hash = ? WHERE user_id = ?");
@@ -122,6 +126,7 @@ $conn->close();
     <title>Reservr | Login</title>
   </head>
   <body>
+    <!-- header coded as it has a different header and file path -->
     <nav>
       <ul>
         <li class="logo">
@@ -138,7 +143,9 @@ $conn->close();
         </li>
       </ul>
     </nav> 
+    <!-- main class -->
     <main class="auth-main">
+      <!-- checks to see if user has pressed forgot password -->
       <?php if ($show_reset): ?>
         <div class="card">
           <h2>Reset Your Password</h2>
@@ -147,6 +154,7 @@ $conn->close();
               <?php echo $error_message; ?>
             </div>
           <?php endif; ?> 
+          <!-- form for user entry on reset -->
           <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?reset=true';?>">
             <div class="form-group">
               <label for="email">Email</label>
@@ -167,6 +175,7 @@ $conn->close();
           </form>
         </div>
       <?php else: ?>
+        <!-- form for login -->
         <div class="card">
           <h2>Welcome Back</h2>
           <?php if ($success_message): ?>
@@ -196,6 +205,7 @@ $conn->close();
         </div>
       <?php endif; ?>
     </main>
+    <!-- include footer -->
     <?php include 'includes/footer.php'; ?>
   </body>
 </html>
