@@ -16,6 +16,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+
+$genre_result = $conn->query("SELECT genre_id, genre_description FROM genres");
+$current_genre = isset($_GET['genre']) ? (int)$_GET['genre'] : '';
+
 $books_per_page = 5;
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $current_page = max(1, $current_page);
@@ -29,9 +33,13 @@ if ($search) {
 }
 
 $count_stmt = $conn->prepare($count_sql);
-if ($search) {
+if ($search && $current_genre > 0) {
   $search_param = "%$search%";
+  $count_stmt->bind_param("si", $search_param, $current_genre);
+} elseif ($search) {
   $count_stmt->bind_param("s", $search_param);
+} elseif ($current_genre > 0) {
+  $count_stmt->bind_param("i", $current_genre);
 }
 
 $count_stmt->execute();
@@ -45,13 +53,21 @@ if ($search) {
   $sql .= " WHERE CONCAT(b.book_title, ' ', b.author, ' ', g.genre_description) LIKE ?";
 }
 
+if ($current_genre > 0) {
+  $sql .= ($search ? " AND" : " WHERE") . " b.genre = ?";
+}
+
 $sql .= " ORDER BY b.book_id ASC LIMIT ? OFFSET ?";
 
 $stmt = $conn->prepare($sql);
 
-if ($search) {
+if ($search && $current_genre > 0) {
   $search_param = "%$search%";
-  $stmt->bind_param("sii", $search_param, $books_per_page, $offset);
+  $stmt->bind_param("siii", $search_param, $current_genre, $books_per_page, $offset);
+} elseif ($search) {
+  $stmt->bind_param("sii",$search_param, $books_per_page, $offset);
+} elseif ($current_genre > 0) {
+  $stmt->bind_param("iii",$current_genre, $books_per_page, $offset);
 } else {
   $stmt->bind_param("ii", $books_per_page, $offset);
 }
@@ -123,6 +139,20 @@ $result = $stmt->get_result();
             <p>Top Sellers (Page <?php echo $current_page; ?> of <?php echo $total_pages; ?>)</p>
           <?php endif; ?>
         </div>
+        <form method="GET" class="genre-dropdown-filter">
+          <?php if ($search): ?>
+            <input type="hidden" name="q" value="<?php echo htmlspecialchars($search); ?>">
+          <?php endif; ?>
+          <select name="genre" onchange="this.form.submit()">
+            <option value="">All Genres</option>
+            <?php while ($g = $genre_result->fetch_assoc()): ?>
+              <option value="<?php echo $g['genre_id']; ?>"
+              <?php echo ($current_genre == $g['genre_id']) ? 'selected' : ''; ?>>
+              <?php echo htmlspecialchars($g['genre_description']); ?>
+              </option>
+            <?php endwhile; ?>
+          </select>
+        </form>
         <div class="books-container">
           <?php if ($search && $total_books == 0): ?>
             <h2 class="error-search">
