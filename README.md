@@ -6,7 +6,7 @@ A simple and efficient **full-stack web application for managing library book re
 
 ## 🖼️ Overview
 
-Reservr provides a **digital platform** that simplifies library reservation workflows. It offers a **user-friendly interface** for users to **browse, reserve, and manage books,** while tracking real-time availability and reservation status.
+Reservr is a full-stack library reservation system built with PHP and MySQL. Users can register, browse the catalogue, reserve books, and manage their reservations through a session-based authenticated interface.
 
 ---
 
